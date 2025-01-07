@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../themes/theme.dart';
 import 'widgets/custom_text_field.dart';
 import 'widgets/login_button.dart';
 
@@ -15,8 +16,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
-        centerTitle: true,
+        backgroundColor: AppTheme.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,11 +24,8 @@ class LoginView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Login to Your Account',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              'Xin chào, hãy đăng nhập để cùng luyện tiếng anh nhé !',
+              style: AppTheme.lobsterFont,
             ),
             SizedBox(height: 20),
             CustomTextField(
@@ -53,7 +50,7 @@ class LoginView extends StatelessWidget {
               onPressed: () {
                 Get.toNamed('/register');
               },
-              child: Text('Don\'t have an account? Register here!'),
+              child: Text('Bạn không có tài khoản? Đăng kí ngay tại đây nhé!'),
             ),
           ],
         ),

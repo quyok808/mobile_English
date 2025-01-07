@@ -26,15 +26,25 @@ class AuthController extends GetxController {
     return null;
   }
 
-  // Phương thức đăng ký
-  Future<bool> register(String email, String password) async {
+  String? get displayName => currentUser.value?.displayName; // Lấy tên hiển thị
+
+  Future<bool> register(
+      String email, String password, String displayName) async {
     try {
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return userCredential.user != null;
+
+      if (userCredential.user != null) {
+        await userCredential.user!.updateDisplayName(displayName);
+        await userCredential.user!.reload();
+        currentUser.value =
+            _firebaseAuth.currentUser; // Cập nhật thông tin người dùng
+      }
+
+      return true;
     } catch (e) {
       print('Registration Error: $e');
       return false;

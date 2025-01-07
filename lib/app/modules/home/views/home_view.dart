@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:onlya_english/app/modules/account/views/account_view.dart';
 import '../../auth/controllers/auth_controller.dart';
 
 class HomeView extends StatefulWidget {
@@ -19,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
     Center(child: Text('Trang chủ')),
     Center(child: Text('Khóa Học')),
     Center(child: Text('Game')),
-    Center(child: Text('Tài khoản')),
+    Center(child: AccountView()),
   ];
 
   @override

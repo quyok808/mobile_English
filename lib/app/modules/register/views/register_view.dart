@@ -9,6 +9,7 @@ class RegisterView extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  final TextEditingController displayNameController = TextEditingController();
 
   RegisterView({super.key});
 
@@ -30,6 +31,11 @@ class RegisterView extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            CustomTextField(
+              controller: displayNameController,
+              labelText: 'Tên hiển thị',
+              icon: Icons.email,
             ),
             SizedBox(height: 20),
             CustomTextField(
@@ -56,6 +62,7 @@ class RegisterView extends StatelessWidget {
               emailController: emailController,
               passwordController: passwordController,
               confirmPasswordController: confirmPasswordController,
+              displayNameController: displayNameController,
             ),
           ],
         ),

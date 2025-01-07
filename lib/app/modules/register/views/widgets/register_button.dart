@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_super_parameters
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,12 +8,14 @@ class RegisterButton extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
+  final TextEditingController displayNameController;
 
   const RegisterButton({
     Key? key,
     required this.emailController,
     required this.passwordController,
     required this.confirmPasswordController,
+    required this.displayNameController,
   }) : super(key: key);
 
   @override
@@ -25,37 +27,42 @@ class RegisterButton extends StatelessWidget {
         String email = emailController.text.trim();
         String password = passwordController.text.trim();
         String confirmPassword = confirmPasswordController.text.trim();
+        String displayName = displayNameController.text.trim();
 
-        if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+        if (email.isEmpty ||
+            password.isEmpty ||
+            confirmPassword.isEmpty ||
+            displayName.isEmpty) {
           Get.snackbar(
-            'Error',
-            'All fields are required',
-            snackPosition: SnackPosition.BOTTOM,
+            'Lỗi',
+            'Cần phải điền đầy đủ thông tin !!!',
+            snackPosition: SnackPosition.TOP,
           );
           return;
         }
 
         if (password != confirmPassword) {
           Get.snackbar(
-            'Error',
-            'Passwords do not match',
-            snackPosition: SnackPosition.BOTTOM,
+            'Lỗi',
+            'Xác nhận mật khẩu không trùng khớp với mật khẩu',
+            snackPosition: SnackPosition.TOP,
           );
           return;
         }
 
-        bool success = await authController.register(email, password);
+        bool success =
+            await authController.register(email, password, displayName);
         if (success) {
           Get.snackbar(
-            'Success',
-            'Account created successfully! Please login.',
-            snackPosition: SnackPosition.BOTTOM,
+            'Thành Công',
+            'Đăng kí tài khoản thành công.',
+            snackPosition: SnackPosition.TOP,
           );
           Get.offAllNamed('/login'); // Chuyển về màn hình Login
         } else {
           Get.snackbar(
-            'Error',
-            'Registration failed',
+            'Lỗi',
+            'Đăng kí thất bại.',
             snackPosition: SnackPosition.BOTTOM,
           );
         }
@@ -64,7 +71,7 @@ class RegisterButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
       ),
       child: Text(
-        'Register',
+        'Đăng kí',
         style: TextStyle(fontSize: 16),
       ),
     );

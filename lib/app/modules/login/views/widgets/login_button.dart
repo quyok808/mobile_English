@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_super_parameters
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -25,9 +26,17 @@ class LoginButton extends StatelessWidget {
 
         if (email.isEmpty || password.isEmpty) {
           Get.snackbar(
-            'Error',
-            'Email and Password cannot be empty',
-            snackPosition: SnackPosition.BOTTOM,
+            'Cảnh báo !', // Title
+            'Thông tin không được để trống !!!', // Message
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: AppTheme.orange,
+            titleText: Row(
+              children: [
+                Icon(Icons.warning, color: Colors.red),
+                SizedBox(width: 8),
+                Text('Cảnh báo !', style: AppTheme.jetBrainsMono),
+              ],
+            ),
           );
           return;
         }
@@ -43,19 +52,25 @@ class LoginButton extends StatelessWidget {
         if (success) {
           Get.offAllNamed('/home');
         } else {
-          Get.snackbar(
-            'Login Failed',
-            'Invalid email or password',
-            snackPosition: SnackPosition.BOTTOM,
+          AppTheme.GetSnackBarWarning(
+            title: 'Đăng nhập thất bại',
+            content: 'Không tìm thấy thông tin tài khoản',
           );
         }
       },
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        // Màu nền chính
+        iconColor: Colors.white, // Màu chữ khi nút được kích hoạt
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)), // Bo tròn góc
+        elevation: 3, // Thêm đổ bóng nhẹ
       ),
       child: Text(
-        'Login',
-        style: TextStyle(fontSize: 16),
+        'Đăng nhập',
+        style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500), // Chỉnh font chữ và độ dày
       ),
     );
   }
