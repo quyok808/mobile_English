@@ -8,6 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/HomeScreen.dart';
 import 'screens/LoginScreen.dart';
 
+import 'package:get/get.dart';
+import 'app/routes/app_pages.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -21,9 +24,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Welcome to OnlyA English',
+      title: 'OnlyA',
       home: AuthChecker(),
     );
   }
