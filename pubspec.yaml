@@ -1,10 +1,10 @@
 name: onlya_english
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.1.0
+version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.3
 
 dependencies:
   flutter:
@@ -20,11 +20,18 @@ dependencies:
   get: ^4.6.6
   random_string: ^2.3.1
   mailer: ^6.3.0
+  sqflite: ^2.4.1
+  path_provider: ^2.1.5
+  provider: ^6.1.2
+  flutter_tts: ^4.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
+  assets:
+    - assets/database/dict_hh.db
+    - assets/images/appbar_background.png
   uses-material-design: true
