@@ -51,8 +51,15 @@ class RegisterButton extends StatelessWidget {
           return;
         }
 
+        Get.dialog(
+          Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
+
         bool success =
             await authController.register(email, password, displayName);
+        Get.back();
+
         if (success) {
           Get.toNamed('/otp-verification', arguments: email);
           // Get.offAllNamed('/login'); // Chuyển về màn hình Login
