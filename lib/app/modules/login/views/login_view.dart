@@ -20,62 +20,59 @@ class LoginView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppTheme.blue,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Xin chào, hãy đăng nhập để cùng luyện tiếng anh nhé !',
-                style: AppTheme.lobsterFont,
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: emailController,
-                labelText: 'Email',
-                prefixIcon: Icons.email,
-                suffixIcon_Password: false,
-              ),
-              SizedBox(height: 15),
-              Obx(() {
-                return CustomTextField(
-                  controller: passwordController,
-                  labelText: 'Password',
-                  prefixIcon: Icons.lock,
-                  suffixIcon_Password: true,
-                  obscureText: !_auth.isPasswordVisible.value,
-                  toggleVisibility: _auth.togglePasswordVisibility,
-                  isPasswordVisible: _auth.isPasswordVisible,
-                );
-              }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Get.toNamed('/forgot-password');
-                    },
-                    child: Text(
-                      'Quên mật khẩu?',
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Xin chào, hãy đăng nhập để cùng luyện tiếng anh nhé !',
+              style: AppTheme.lobsterFont,
+            ),
+            SizedBox(height: 20),
+            CustomTextField(
+              controller: emailController,
+              labelText: 'Email',
+              prefixIcon: Icons.email,
+              suffixIcon_Password: false,
+            ),
+            SizedBox(height: 15),
+            Obx(() {
+              return CustomTextField(
+                controller: passwordController,
+                labelText: 'Password',
+                prefixIcon: Icons.lock,
+                suffixIcon_Password: true,
+                obscureText: !_auth.isPasswordVisible.value,
+                toggleVisibility: _auth.togglePasswordVisibility,
+                isPasswordVisible: _auth.isPasswordVisible,
+              );
+            }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed('/forgot-password');
+                  },
+                  child: Text(
+                    'Quên mật khẩu?',
                   ),
-                ],
-              ),
-              LoginButton(
-                emailController: emailController,
-                passwordController: passwordController,
-              ),
-              SizedBox(height: 15),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed('/register');
-                },
-                child:
-                    Text('Bạn không có tài khoản? Đăng kí ngay tại đây nhé!'),
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            LoginButton(
+              emailController: emailController,
+              passwordController: passwordController,
+            ),
+            SizedBox(height: 15),
+            TextButton(
+              onPressed: () {
+                Get.toNamed('/register');
+              },
+              child: Text('Bạn không có tài khoản? Đăng kí ngay tại đây nhé!'),
+            ),
+          ],
         ),
       ),
     );

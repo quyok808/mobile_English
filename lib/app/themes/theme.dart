@@ -17,6 +17,8 @@ class AppTheme {
       GoogleFonts.lobster(fontWeight: FontWeight.bold, fontSize: 24);
   static final jetBrainsMono =
       GoogleFonts.jetBrainsMono(fontWeight: FontWeight.bold);
+  static final ChuVietTay = GoogleFonts.fleurDeLeah(fontSize: 42);
+  static final literata = GoogleFonts.literata(fontSize: 24);
 
   static void GetSnackBarWarning(
       {required String title, required String content}) {

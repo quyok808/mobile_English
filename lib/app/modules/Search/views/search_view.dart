@@ -2,27 +2,53 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 // import 'detail_page.dart';
+import '../../../middleware/auth/controllers/auth_controller.dart';
 import '../controllers/search_controller.dart';
 import 'widgets/search_item.dart';
 
 class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
     final SearchWordController controller = Get.find<SearchWordController>();
     return Scaffold(
       body: Stack(
         children: [
           // AppBar
-          Container(
-            height: 250, // Chiều cao AppBar
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/appbar_background.png'), // Đường dẫn hình ảnh
-                fit: BoxFit.cover, // Tùy chỉnh để hình ảnh phù hợp
+          Stack(
+            children: [
+              Container(
+                height: 250,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/appbar_background.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
+              Positioned(
+                // Sử dụng Positioned để định vị Text
+                top: 50, // Khoảng cách từ đỉnh (tùy chỉnh)
+                left: 20, // Khoảng cách từ bên trái (tùy chỉnh)
+                child: Obx(() {
+                  String displayName = authController.displayName ?? 'User';
+                  return Column(
+                    children: [
+                      Text(
+                        'Welcome, ',
+                        style: AppTheme.literata,
+                      ),
+                      Text(
+                        displayName,
+                        style: AppTheme.ChuVietTay,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ],
           ),
 
           // Nội dung chính: danh sách kết quả tìm kiếm
