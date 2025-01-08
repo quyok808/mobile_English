@@ -1,11 +1,7 @@
 import 'package:get/get.dart';
-import 'package:sqflite/sqflite.dart';
-import '../../../../models/av_entry.dart';
-import '../../../../models/va_entry.dart';
 import '../../../../services/database_service.dart';
 
-
-class HomeController extends GetxController {
+class SearchWordController extends GetxController {
   var results = <dynamic>[].obs;
   var selectedLanguage = 'AV'.obs;
 

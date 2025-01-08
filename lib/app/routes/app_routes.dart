@@ -8,4 +8,5 @@ abstract class AppRoutes {
   static const ACCOUNT = '/account';
   static const OTP_VERIFY = '/otp-verification';
   static const FORGOT_PASSWORD = '/forgot-password';
+  static const SEARCH = '/search';
 }

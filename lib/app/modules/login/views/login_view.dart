@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/modules/login/views/reset_password_view.dart';
 import '../../../themes/theme.dart';
 import 'widgets/custom_text_field.dart';
 import 'widgets/login_button.dart';

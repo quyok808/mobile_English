@@ -1,14 +1,15 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import 'detail_page.dart';
 import '../controllers/search_controller.dart';
-import 'detail_page.dart';
 import 'widgets/search_item.dart';
 
-class HomeView extends StatelessWidget {
+class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find();
-
+    final SearchWordController controller = Get.find<SearchWordController>();
     return Scaffold(
       body: Stack(
         children: [
@@ -17,7 +18,8 @@ class HomeView extends StatelessWidget {
             height: 250, // Chiều cao AppBar
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/appbar_background.png'), // Đường dẫn hình ảnh
+                image: AssetImage(
+                    'assets/images/appbar_background.png'), // Đường dẫn hình ảnh
                 fit: BoxFit.cover, // Tùy chỉnh để hình ảnh phù hợp
               ),
             ),
@@ -26,39 +28,43 @@ class HomeView extends StatelessWidget {
           // Nội dung chính: danh sách kết quả tìm kiếm
           Obx(() {
             return Padding(
-              padding: const EdgeInsets.only(top: 300), // Chừa khoảng trống phía trên cho khung nổi
+              padding: const EdgeInsets.only(
+                  top: 300), // Chừa khoảng trống phía trên cho khung nổi
               child: controller.results.isNotEmpty // Kiểm tra nếu có kết quả
                   ? ListView.builder(
-                itemCount: controller.results.length,
-                itemBuilder: (context, index) {
-                  final entry = controller.results[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0), // Thêm lề
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SearchItem(entry: entry),
-                        Divider(
-                          color: Color(0xFF1F4529), // Màu divider
-                          thickness: 0.5,
-                        ),
-                      ],
+                      itemCount: controller.results.length,
+                      itemBuilder: (context, index) {
+                        final entry = controller.results[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0), // Thêm lề
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SearchItem(entry: entry),
+                              Divider(
+                                color: Color(0xFF1F4529), // Màu divider
+                                thickness: 0.5,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      // Nếu không có kết quả, hiển thị thông báo
+                      child: Text(
+                        'Không tìm thấy kết quả',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
                     ),
-                  );
-                },
-              )
-                  : Center( // Nếu không có kết quả, hiển thị thông báo
-                child: Text(
-                  'Không tìm thấy kết quả',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-              ),
             );
           }),
 
           // Khung nổi chứa ô tìm kiếm và các nút
           Positioned(
-            top: 200, // Cách trên (đặt trong khoảng giữa AppBar và nội dung chính)
+            top:
+                200, // Cách trên (đặt trong khoảng giữa AppBar và nội dung chính)
             left: 16, // Cách trái
             right: 16, // Cách phải
             child: Container(
@@ -81,36 +87,42 @@ class HomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() => TextButton(
-                        onPressed: () => controller.changeLanguage('AV'),
-                        style: TextButton.styleFrom(
-                          backgroundColor: controller.selectedLanguage.value == 'AV'
-                              ? Colors.blue[400]
-                              : Colors.white,
-                          foregroundColor: controller.selectedLanguage.value == 'AV'
-                              ? Colors.white
-                              : Colors.black,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                        child: Text('Anh - Việt'),
-                      )),
+                            onPressed: () => controller.changeLanguage('AV'),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  controller.selectedLanguage.value == 'AV'
+                                      ? Colors.blue[400]
+                                      : Colors.white,
+                              foregroundColor:
+                                  controller.selectedLanguage.value == 'AV'
+                                      ? Colors.white
+                                      : Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                            child: Text('Anh - Việt'),
+                          )),
                       const SizedBox(width: 8),
                       Obx(() => TextButton(
-                        onPressed: () => controller.changeLanguage('VA'),
-                        style: TextButton.styleFrom(
-                          backgroundColor: controller.selectedLanguage.value == 'VA'
-                              ? Colors.blue[400]
-                              : Colors.white,
-                          foregroundColor: controller.selectedLanguage.value == 'VA'
-                              ? Colors.white
-                              : Colors.black,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                        child: Text('Việt - Anh'),
-                      )),
+                            onPressed: () => controller.changeLanguage('VA'),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  controller.selectedLanguage.value == 'VA'
+                                      ? Colors.blue[400]
+                                      : Colors.white,
+                              foregroundColor:
+                                  controller.selectedLanguage.value == 'VA'
+                                      ? Colors.white
+                                      : Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                            child: Text('Việt - Anh'),
+                          )),
                     ],
                   ),
 
@@ -130,8 +142,7 @@ class HomeView extends StatelessWidget {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                          BorderSide(color: Colors.blue, width: 2),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
                         ),
                       ),
                       onChanged: (query) => controller.search(query),

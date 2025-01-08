@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +8,6 @@ import 'package:path/path.dart';
 
 import '../models/av_entry.dart';
 import '../models/va_entry.dart';
-
 
 class DatabaseService {
   Future<Database> initDatabase() async {
@@ -23,26 +24,42 @@ class DatabaseService {
   }
 
   Future<List<AVEntry>> searchAV(String query) async {
+    if (query.isEmpty) {
+      return []; // Trả về danh sách rỗng nếu query rỗng
+    }
     final db = await initDatabase();
     final maps = await db.query(
       'av',
       where: 'word LIKE ?',
       whereArgs: ['%$query%'],
     );
-    return List.generate(maps.length, (i) {
+    List<AVEntry> results = List.generate(maps.length, (i) {
       return AVEntry.fromMap(maps[i]);
     });
+
+    // Sắp xếp theo độ dài của từ (từ ngắn nhất đến dài nhất)
+    results.sort((a, b) => a.word.length.compareTo(b.word.length));
+    return results;
   }
 
   Future<List<VAEntry>> searchVA(String query) async {
+    if (query.isEmpty) {
+      return []; // Trả về danh sách rỗng nếu query rỗng
+    }
     final db = await initDatabase();
     final maps = await db.query(
       'va',
       where: 'word LIKE ?',
       whereArgs: ['%$query%'],
     );
-    return List.generate(maps.length, (i) {
+
+    List<VAEntry> results = List.generate(maps.length, (i) {
       return VAEntry.fromMap(maps[i]);
     });
+
+    // Sắp xếp theo độ dài của từ (từ ngắn nhất đến dài nhất)
+    results.sort((a, b) => a.word.length.compareTo(b.word.length));
+
+    return results;
   }
 }

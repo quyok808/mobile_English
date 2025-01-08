@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:get/get.dart';
+import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/bindings/account_binding.dart';
 import 'package:onlya_english/app/modules/auth/views/otp_auth_View.dart';
 import 'package:onlya_english/app/modules/home/bindings/home_bindings.dart';
+import '../modules/Search/bindings/search_binding.dart';
 import '../modules/account/views/account_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_checker_view.dart';
@@ -45,6 +47,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.FORGOT_PASSWORD,
       page: () => ForgotPasswordView(),
+    ),
+    GetPage(
+      name: AppRoutes.SEARCH,
+      page: () => SearchView(),
+      binding: SearchBinding(),
     ),
   ];
 }
