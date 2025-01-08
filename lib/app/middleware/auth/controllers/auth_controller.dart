@@ -34,6 +34,10 @@ class AuthController extends GetxController {
     return null;
   }
 
+  bool hasUser({required String email}) {
+    return false;
+  }
+
   String? get displayName => currentUser.value?.displayName; // Lấy tên hiển thị
 
   Future<bool> register(
@@ -177,6 +181,12 @@ class AuthController extends GetxController {
       print('Login Error: $e');
       return false;
     }
+  }
+
+  RxBool isPasswordVisible = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
   }
 
   // Phương thức đăng xuất

@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../home/views/home_view.dart';
-import '../../login/views/login_view.dart';
+import '../../../modules/home/views/home_view.dart';
+import '../../../modules/login/views/login_view.dart';
 import '../controllers/auth_controller.dart';
 
 class AuthCheckerView extends StatelessWidget {
