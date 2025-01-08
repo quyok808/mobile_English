@@ -1,22 +1,22 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+
+import 'app/modules/auth/controllers/auth_controller.dart';
 import 'firebase_options.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'screens/HomeScreen.dart';
-import 'screens/LoginScreen.dart';
-
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
+import 'app/routes/app_routes.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Khởi tạo Firebase với cấu hình từ firebase_options.dart
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform, // Cấu hình Firebase
   );
-  runApp(const MainApp());
+  Get.put(AuthController()); // Khởi tạo AuthController
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -27,30 +27,8 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'OnlyA',
-      home: AuthChecker(),
+      initialRoute: AppRoutes.AUTH_CHECKER,
+      getPages: AppPages.pages,
     );
-  }
-}
-
-class AuthChecker extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _getLoggedInUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasData && snapshot.data != null) {
-          return HomeScreen(); // Đã đăng nhập
-        } else {
-          return LoginScreen(); // Chưa đăng nhập
-        }
-      },
-    );
-  }
-
-  Future<String?> _getLoggedInUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('email'); // Trả về email nếu đã lưu
   }
 }
