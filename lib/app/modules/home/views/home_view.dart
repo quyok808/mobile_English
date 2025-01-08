@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:onlya_english/app/modules/Search/bindings/search_binding.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/views/account_view.dart';
+import 'package:onlya_english/app/modules/course/bindings/course_bindings.dart';
+import 'package:onlya_english/app/modules/course/views/first.dart';
 import '../../../routes/bound_widget.dart';
 
 class HomeView extends StatefulWidget {
@@ -21,7 +23,10 @@ class _HomeViewState extends State<HomeView> {
       binding: SearchBinding(),
       child: SearchView(),
     ),
-    Center(child: Text('Khóa Học')),
+    BoundWidget(
+      binding: CourseBinding(),
+      child: CourseView(),
+    ),
     Center(child: Text('Game')),
     Center(child: AccountView()),
   ];
@@ -52,6 +57,7 @@ class _HomeViewState extends State<HomeView> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.book, color: Colors.black),
                 label: 'Khóa Học',
+                
               ),
               BottomNavigationBarItem(
                 icon: Icon(

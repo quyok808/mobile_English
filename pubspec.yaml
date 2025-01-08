@@ -34,4 +34,8 @@ flutter:
   assets:
     - assets/database/dict_hh.db
     - assets/images/appbar_background.png
+    - assets/images/listen.png
+    - assets/images/talk.png
+    - assets/images/read.png
+    - assets/images/write.png
   uses-material-design: true
