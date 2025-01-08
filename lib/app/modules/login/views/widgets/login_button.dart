@@ -54,7 +54,7 @@ class LoginButton extends StatelessWidget {
         } else {
           AppTheme.GetSnackBarWarning(
             title: 'Đăng nhập thất bại',
-            content: 'Không tìm thấy thông tin tài khoản',
+            content: 'Sai thông tin tài khoản hoặc mật khẩu',
           );
         }
       },

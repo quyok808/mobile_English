@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 
 class RegisterButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -53,22 +54,20 @@ class RegisterButton extends StatelessWidget {
         bool success =
             await authController.register(email, password, displayName);
         if (success) {
-          Get.snackbar(
-            'Thành Công',
-            'Đăng kí tài khoản thành công.',
-            snackPosition: SnackPosition.TOP,
-          );
-          Get.offAllNamed('/login'); // Chuyển về màn hình Login
+          Get.toNamed('/otp-verification', arguments: email);
+          // Get.offAllNamed('/login'); // Chuyển về màn hình Login
         } else {
-          Get.snackbar(
-            'Lỗi',
-            'Đăng kí thất bại.',
-            snackPosition: SnackPosition.BOTTOM,
-          );
+          AppTheme.GetSnackBarError(
+              title: 'Lỗi', content: 'Đăng kí thất bại !!!');
         }
       },
       style: ElevatedButton.styleFrom(
+        // Màu nền chính
+        iconColor: Colors.white, // Màu chữ khi nút được kích hoạt
         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)), // Bo tròn góc
+        elevation: 3, // Thêm đổ bóng nhẹ
       ),
       child: Text(
         'Đăng kí',

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import '../../../themes/theme.dart';
 import '../../login/views/widgets/custom_text_field.dart';
 import 'widgets/register_button.dart';
 
@@ -17,8 +18,7 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
-        centerTitle: true,
+        backgroundColor: AppTheme.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,12 +26,10 @@ class RegisterView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Create an Account',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              'Hãy tạo tài khoản để cùng tham gia luyện tiếng anh nhé !',
+              style: AppTheme.lobsterFont,
             ),
+            SizedBox(height: 20),
             CustomTextField(
               controller: displayNameController,
               labelText: 'Tên hiển thị',

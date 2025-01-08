@@ -6,4 +6,6 @@ abstract class AppRoutes {
   static const LOGIN = '/login';
   static const REGISTER = '/register';
   static const ACCOUNT = '/account';
+  static const OTP_VERIFY = '/otp-verification';
+  static const FORGOT_PASSWORD = '/forgot-password';
 }

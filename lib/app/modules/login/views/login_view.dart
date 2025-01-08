@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onlya_english/app/modules/login/views/reset_password_view.dart';
 import '../../../themes/theme.dart';
 import 'widgets/custom_text_field.dart';
 import 'widgets/login_button.dart';
@@ -40,7 +41,19 @@ class LoginView extends StatelessWidget {
               icon: Icons.lock,
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed('/forgot-password');
+                  },
+                  child: Text(
+                    'Quên mật khẩu?',
+                  ),
+                ),
+              ],
+            ),
             LoginButton(
               emailController: emailController,
               passwordController: passwordController,
