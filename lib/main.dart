@@ -15,6 +15,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform, // Cấu hình Firebase
   );
   Get.put(AuthController()); // Khởi tạo AuthController
+
   runApp(MainApp());
 }
 
