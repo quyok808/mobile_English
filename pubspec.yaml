@@ -18,6 +18,8 @@ dependencies:
   firebase_storage: ^12.3.7
   http: ^1.2.2
   get: ^4.6.6
+  random_string: ^2.3.1
+  mailer: ^6.3.0
   sqflite: ^2.4.1
   path_provider: ^2.1.5
   provider: ^6.1.2
@@ -33,5 +35,3 @@ flutter:
     - assets/database/dict_hh.db
     - assets/images/appbar_background.png
   uses-material-design: true
-
-
