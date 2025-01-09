@@ -70,6 +70,7 @@ class RegisterButton extends StatelessWidget {
       },
       style: ElevatedButton.styleFrom(
         // Màu nền chính
+        backgroundColor: Colors.blue[400],
         iconColor: Colors.white, // Màu chữ khi nút được kích hoạt
         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
         shape: RoundedRectangleBorder(
@@ -78,7 +79,7 @@ class RegisterButton extends StatelessWidget {
       ),
       child: Text(
         'Đăng kí',
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );
   }
