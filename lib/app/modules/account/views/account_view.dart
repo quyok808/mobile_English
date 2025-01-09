@@ -2,35 +2,60 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/modules/account/views/widgets/louout_button.dart';
+import 'package:onlya_english/app/modules/account/views/widgets/infomation_widget.dart';
 import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/themes/theme.dart';
+
+import 'widgets/button_management.dart';
 
 class AccountView extends StatelessWidget {
-  AccountView({super.key});
-
-  final AuthController authController = Get.find<AuthController>();
+  const AccountView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(() {
-              String displayName = authController.displayName ?? 'User';
-              return Text(
-                'Welcome, $displayName!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              );
-            }),
-            SizedBox(height: 10),
-            Center(
-              // Đơn giản hơn Align trong trường hợp căn giữa
-              child: LogoutButton(),
-            ),
-          ],
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            'Thông tin tài khoản',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
         ),
+        backgroundColor: AppTheme.blue,
+      ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Container(
+                height: 215,
+                color: AppTheme.blue,
+                child: InfomationWidget(),
+              ),
+              Expanded(
+                child: Container(), // mục đích chỉ để mở rộng màn hình
+              )
+            ],
+          ),
+          Positioned(
+            top: 170, // Đẩy Container trắng lên 50px vào Container trên
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height -
+                  190, // Đặt chiều cao cụ thể
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50), // Bo góc trên bên trái
+                  topRight: Radius.circular(50), // Bo góc trên bên phải
+                ),
+              ),
+              child: ListManagement(),
+            ),
+          ),
+        ],
       ),
     );
   }
