@@ -60,17 +60,21 @@ class LoginButton extends StatelessWidget {
       },
       style: ElevatedButton.styleFrom(
         // Màu nền chính
-        iconColor: Colors.white, // Màu chữ khi nút được kích hoạt
+        backgroundColor: Color(0xFF4bafee),
+        iconColor: Colors.blue, // Màu chữ khi nút được kích hoạt
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10)), // Bo tròn góc
         elevation: 3, // Thêm đổ bóng nhẹ
       ),
-      child: Text(
-        'Đăng nhập',
-        style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500), // Chỉnh font chữ và độ dày
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Image.asset(
+          'assets/images/login-btn.gif',
+          fit: BoxFit.cover,
+          width: 100,
+          height: 23,
+        ),
       ),
     );
   }

@@ -34,5 +34,5 @@ dev_dependencies:
 flutter:
   assets:
     - assets/database/dict_hh.db
-    - assets/images/appbar_background.png
+    - assets/images/
   uses-material-design: true
