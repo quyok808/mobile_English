@@ -40,7 +40,7 @@ class SearchView extends StatelessWidget {
                               horizontal: 16.0), // Thêm lề
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: [                           
                               SearchItem(entry: entry),
                               Divider(
                                 color: Color(0xFF1F4529), // Màu divider
@@ -63,8 +63,7 @@ class SearchView extends StatelessWidget {
 
           // Khung nổi chứa ô tìm kiếm và các nút
           Positioned(
-            top:
-                200, // Cách trên (đặt trong khoảng giữa AppBar và nội dung chính)
+            top:200, // Cách trên (đặt trong khoảng giữa AppBar và nội dung chính)
             left: 16, // Cách trái
             right: 16, // Cách phải
             child: Container(
