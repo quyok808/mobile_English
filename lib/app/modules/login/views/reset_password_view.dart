@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/themes/theme.dart';
-import '../../auth/controllers/auth_controller.dart';
+import '../../../middleware/auth/controllers/auth_controller.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

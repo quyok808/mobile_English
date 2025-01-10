@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/modules/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 
 class RegisterButton extends StatelessWidget {
@@ -51,8 +51,15 @@ class RegisterButton extends StatelessWidget {
           return;
         }
 
+        Get.dialog(
+          Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
+
         bool success =
             await authController.register(email, password, displayName);
+        Get.back();
+
         if (success) {
           Get.toNamed('/otp-verification', arguments: email);
           // Get.offAllNamed('/login'); // Chuyển về màn hình Login

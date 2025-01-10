@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/account/views/widgets/louout_button.dart';
-import 'package:onlya_english/app/modules/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
 
 class AccountView extends StatelessWidget {
   AccountView({super.key});

@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../middleware/auth/controllers/auth_controller.dart';
 import '../../../themes/theme.dart';
 import '../../login/views/widgets/custom_text_field.dart';
 import 'widgets/register_button.dart';
@@ -16,6 +18,7 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController _auth = Get.find<AuthController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.blue,
@@ -33,28 +36,40 @@ class RegisterView extends StatelessWidget {
             CustomTextField(
               controller: displayNameController,
               labelText: 'Tên hiển thị',
-              icon: Icons.email,
+              prefixIcon: Icons.email,
+              suffixIcon_Password: false,
             ),
             SizedBox(height: 20),
             CustomTextField(
               controller: emailController,
               labelText: 'Email',
-              icon: Icons.email,
+              prefixIcon: Icons.email,
+              suffixIcon_Password: false,
             ),
             SizedBox(height: 15),
-            CustomTextField(
-              controller: passwordController,
-              labelText: 'Password',
-              icon: Icons.lock,
-              obscureText: true,
-            ),
+            Obx(() {
+              return CustomTextField(
+                controller: passwordController,
+                labelText: 'Password',
+                prefixIcon: Icons.lock,
+                suffixIcon_Password: true,
+                obscureText: !_auth.isPasswordVisible.value,
+                toggleVisibility: _auth.togglePasswordVisibility,
+                isPasswordVisible: _auth.isPasswordVisible,
+              );
+            }),
             SizedBox(height: 15),
-            CustomTextField(
-              controller: confirmPasswordController,
-              labelText: 'Confirm Password',
-              icon: Icons.lock,
-              obscureText: true,
-            ),
+            Obx(() {
+              return CustomTextField(
+                controller: passwordController,
+                labelText: 'Confirm Password',
+                prefixIcon: Icons.lock,
+                suffixIcon_Password: false,
+                obscureText: !_auth.isPasswordVisible.value,
+                toggleVisibility: _auth.togglePasswordVisibility,
+                isPasswordVisible: _auth.isPasswordVisible,
+              );
+            }),
             SizedBox(height: 20),
             RegisterButton(
               emailController: emailController,
