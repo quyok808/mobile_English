@@ -3,6 +3,8 @@
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/bindings/account_binding.dart';
+import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
+import '../modules/flashcard/bindings/flashcard_binding.dart';
 import 'package:onlya_english/app/middleware/auth/views/otp_auth_View.dart';
 import 'package:onlya_english/app/modules/edit_infomation/bindings/editInfomation_binding.dart';
 import 'package:onlya_english/app/modules/edit_infomation/views/edit_infomation_view.dart';
@@ -59,6 +61,11 @@ class AppPages {
       name: AppRoutes.EDIT_INFOMATION,
       page: () => EditInfomationView(),
       binding: EditinfomationBinding(),
-    )
+    ),
+     GetPage(
+      name: AppRoutes.FLASHCARD,
+      page: () => FlashcardView(),
+      binding: FlashcardBinding(),
+    ),
   ];
 }
