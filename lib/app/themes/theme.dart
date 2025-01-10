@@ -11,13 +11,17 @@ class AppTheme {
   static final blue = Colors.blue[200];
   static final orange = Color(0xFFF2C18D);
   static final green = Colors.greenAccent[400];
+  static final light_blue = Color.fromARGB(255, 187, 238, 250);
 
   //font chữ
   static final lobsterFont =
       GoogleFonts.lobster(fontWeight: FontWeight.bold, fontSize: 24);
   static final jetBrainsMono =
       GoogleFonts.jetBrainsMono(fontWeight: FontWeight.bold);
+  static final ChuVietTay = GoogleFonts.fleurDeLeah(fontSize: 42);
+  static final literata = GoogleFonts.literata(fontSize: 24);
 
+  //SnackBar
   static void GetSnackBarWarning(
       {required String title, required String content}) {
     Get.snackbar(

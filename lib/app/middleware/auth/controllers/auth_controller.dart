@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, deprecated_member_use
+// ignore_for_file: avoid_print, deprecated_member_use, unnecessary_null_comparison
 
 import 'dart:math';
 
@@ -35,6 +35,9 @@ class AuthController extends GetxController {
   }
 
   bool hasUser({required String email}) {
+    Future<List<String>> userCredential =
+        _firebaseAuth.fetchSignInMethodsForEmail(email);
+    if (userCredential != null) return true;
     return false;
   }
 
@@ -48,6 +51,8 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
+
+      await saveAdditionalUserInfo("N/A", "N/A");
 
       if (userCredential.user != null) {
         // Cập nhật display name
@@ -157,6 +162,21 @@ class AuthController extends GetxController {
     } catch (e) {
       print('Password Reset Error: $e');
       return false; // Gửi email thất bại
+    }
+  }
+
+  Future<void> saveAdditionalUserInfo(String dateOfBirth, String sex) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final userDoc =
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+      await userDoc.set({
+        'email': user.email,
+        'dateOfBirth': dateOfBirth,
+        'sex': sex,
+      });
     }
   }
 
