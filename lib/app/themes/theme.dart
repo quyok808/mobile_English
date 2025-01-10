@@ -12,6 +12,7 @@ class AppTheme {
   static final orange = Color(0xFFF2C18D);
   static final green = Colors.greenAccent[400];
   static final light_blue = Color(0xFFBBEEFA);
+  static final purple = Color(0xFF624E88);
 
   //font chữ
   static final lobsterFont =

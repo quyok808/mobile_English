@@ -38,6 +38,7 @@ class RegisterView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Card(
+                  color: Colors.white,
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -102,8 +103,25 @@ class RegisterView extends StatelessWidget {
                           onPressed: () {
                             Get.back();
                           },
-                          child: Text(
-                              'Bạn đã có tài khoản? Đăng nhập và cùng học nhé!'),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Bạn đã có tài khoản? ',
+                                style: TextStyle(
+                                  color: AppTheme.purple,
+                                ),
+                              ),
+                              Text(
+                                'Đăng nhập và cùng học nhé!',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 2.0,
+                                  color: AppTheme.purple,
+                                  decorationColor: AppTheme.purple,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

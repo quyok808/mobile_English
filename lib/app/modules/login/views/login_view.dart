@@ -40,6 +40,7 @@ class LoginView extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Card(
+                  color: Colors.white,
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -100,6 +101,7 @@ class LoginView extends StatelessWidget {
                                 return ElevatedButton(
                                   onPressed: _controller.signInWithGoogle,
                                   style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       // Tạo viền bo tròn
                                       borderRadius: BorderRadius.circular(10),
@@ -127,8 +129,25 @@ class LoginView extends StatelessWidget {
                           onPressed: () {
                             Get.toNamed('/register');
                           },
-                          child: Text(
-                              'Bạn không có tài khoản? Đăng kí ngay tại đây nhé!'),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Bạn không có tài khoản? ',
+                                style: TextStyle(
+                                  color: AppTheme.purple,
+                                ),
+                              ),
+                              Text(
+                                'Đăng kí ngay tại đây nhé!',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 2.0,
+                                  color: AppTheme.purple,
+                                  decorationColor: AppTheme.purple,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
