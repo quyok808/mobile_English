@@ -46,17 +46,31 @@ class SearchView extends StatelessWidget {
                   left: 10,
                   child: Obx(() {
                     String displayName = homeController.displayName.value;
+
+                    List<String> words = displayName.split(' '); // Tách các từ
+                    List<Widget> lines = [];
+
+                    // Chia các từ thành các nhóm 3 từ mỗi nhóm
+                    for (int i = 0; i < words.length; i += 3) {
+                      lines.add(Text(
+                        words
+                            .sublist(
+                                i, i + 3 > words.length ? words.length : i + 3)
+                            .join(' '),
+                        style: AppTheme.ChuVietTay,
+                      ));
+                    }
                     return Container(
-                      decoration: BoxDecoration(
-                        gradient: RadialGradient(
-                          center: Alignment.center, // Bắt đầu từ trung tâm
-                          radius: 1.5, // Phạm vi của gradient
-                          colors: [
-                            Colors.white.withOpacity(0.9), // Đậm dần ở giữa
-                            Colors.white.withOpacity(0.0), // Trong suốt ở ngoài
-                          ],
-                        ),
-                      ),
+                      // decoration: BoxDecoration(
+                      //   gradient: RadialGradient(
+                      //     center: Alignment.center, // Bắt đầu từ trung tâm
+                      //     radius: 1.5, // Phạm vi của gradient
+                      //     colors: [
+                      //       Colors.white.withOpacity(0.9), // Đậm dần ở giữa
+                      //       Colors.white.withOpacity(0.0), // Trong suốt ở ngoài
+                      //     ],
+                      //   ),
+                      // ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
@@ -68,9 +82,9 @@ class SearchView extends StatelessWidget {
                               style: AppTheme.literata,
                               textAlign: TextAlign.left,
                             ),
-                            Text(
-                              displayName,
-                              style: AppTheme.ChuVietTay,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: lines,
                             ),
                           ],
                         ),
