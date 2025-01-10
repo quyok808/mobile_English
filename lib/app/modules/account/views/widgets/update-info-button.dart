@@ -8,7 +8,7 @@ class UpdateInfomationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
-        Get.offAllNamed('/edit-info');
+        Get.toNamed('/edit-info');
       },
       style: ElevatedButton.styleFrom(
         // Màu nền chính

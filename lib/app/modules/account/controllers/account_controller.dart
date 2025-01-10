@@ -8,13 +8,17 @@ class AccountController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Rx<User?> currentUser = Rx<User?>(null);
   Rx<CustomUser?> userInfo = Rx<CustomUser?>(null); // Dữ liệu người dùng
 
   @override
   void onInit() {
     super.onInit();
     _loadUserInfo(); // Tải thông tin người dùng khi controller khởi tạo
+    currentUser.bindStream(_firebaseAuth.authStateChanges());
   }
+
+  String? get displayName => currentUser.value?.displayName;
 
   Future<void> loadUserInfo() async {
     final User? currentUser = _firebaseAuth.currentUser;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/modules/account/controllers/account_controller.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 
 class InfomationWidget extends StatelessWidget {
@@ -8,7 +9,7 @@ class InfomationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = Get.find<AuthController>();
+    final AccountController _controller = Get.put(AccountController());
     return Center(
       child: Column(
         children: [
@@ -25,7 +26,7 @@ class InfomationWidget extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Obx(() {
-            String displayName = authController.displayName ?? 'User';
+            String displayName = _controller.displayName ?? "USER";
             return Text(
               displayName,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
