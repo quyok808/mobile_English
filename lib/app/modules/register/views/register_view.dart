@@ -82,7 +82,7 @@ class RegisterView extends StatelessWidget {
                         SizedBox(height: 15),
                         Obx(() {
                           return CustomTextField(
-                            controller: passwordController,
+                            controller: confirmPasswordController,
                             labelText: 'Confirm Password',
                             prefixIcon: Icons.lock,
                             suffixIcon_Password: false,

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/bindings/account_binding.dart';
 import 'package:onlya_english/app/middleware/auth/views/otp_auth_View.dart';
+import 'package:onlya_english/app/modules/edit_infomation/bindings/editInfomation_binding.dart';
+import 'package:onlya_english/app/modules/edit_infomation/views/edit_infomation_view.dart';
 import 'package:onlya_english/app/modules/home/bindings/home_bindings.dart';
 import '../modules/Search/bindings/search_binding.dart';
 import '../modules/account/views/account_view.dart';
@@ -53,5 +55,10 @@ class AppPages {
       page: () => SearchView(),
       binding: SearchBinding(),
     ),
+    GetPage(
+      name: AppRoutes.EDIT_INFOMATION,
+      page: () => EditInfomationView(),
+      binding: EditinfomationBinding(),
+    )
   ];
 }

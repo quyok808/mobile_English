@@ -9,8 +9,6 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../models/CustomUser.dart';
-
 class AuthController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -32,22 +30,6 @@ class AuthController extends GetxController {
     if (email != null) {
       // Nếu có email trong SharedPreferences, trả về thông tin người dùng
       return _firebaseAuth.currentUser;
-    }
-    return null;
-  }
-
-  Future<CustomUser?> getUserInfo() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      final userDoc =
-          FirebaseFirestore.instance.collection('users').doc(user.uid);
-      final snapshot = await userDoc.get();
-
-      if (snapshot.exists) {
-        return CustomUser.fromMap(snapshot.data()!,
-            user.uid); // Chuyển đổi dữ liệu Firestore thành CustomUser
-      }
     }
     return null;
   }
