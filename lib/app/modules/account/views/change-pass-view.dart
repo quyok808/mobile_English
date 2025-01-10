@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/account/controllers/account_controller.dart';
-
+import '../../../themes/snackbar.dart';
 import '../../login/views/widgets/custom_text_field.dart';
 
 class ChangePassView extends StatelessWidget {
@@ -84,20 +84,17 @@ class ChangePassView extends StatelessWidget {
                       if (currentPassword.isEmpty ||
                           newPassword.isEmpty ||
                           confirmPassword.isEmpty) {
-                        Get.snackbar(
-                          'Thông báo',
-                          'Vui lòng nhập đầy đủ thông tin.',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                        SnackBarCustom.GetSnackBarWarning(
+                            title: 'Cảnh báo',
+                            content: 'Thông tin không được để trống');
                         return;
                       }
 
                       if (newPassword != confirmPassword) {
-                        Get.snackbar(
-                          'Lỗi',
-                          'Mật khẩu mới và xác nhận mật khẩu không khớp.',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                        SnackBarCustom.GetSnackBarWarning(
+                            title: 'Cảnh báo',
+                            content:
+                                'Mật khẩu mới và xác nhận mật khẩu không khớp.');
                         return;
                       }
 
@@ -116,11 +113,8 @@ class ChangePassView extends StatelessWidget {
                           confirmPasswordController.clear();
                         }
                       } catch (e) {
-                        Get.snackbar(
-                          'Lỗi',
-                          'Đã xảy ra lỗi: $e',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                        SnackBarCustom.GetSnackBarError(
+                            title: 'Lỗi', content: 'Xảy ra rỗi !!!');
                       } finally {
                         isLoading.value = false;
                       }

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/CustomUser.dart';
+import '../../../themes/snackbar.dart';
 
 class AccountController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -77,20 +78,15 @@ class AccountController extends GetxController {
       // Cập nhật mật khẩu mới
       await user.updatePassword(newPassword);
 
-      Get.snackbar(
-        'Success',
-        'Your password has been changed successfully.',
-        snackPosition: SnackPosition.TOP,
-      );
+      SnackBarCustom.GetSnackBarSuccess(
+          title: 'Thành Công',
+          content: 'Mật khẩu đã được thay đổi thành công !!');
 
       return true;
     } catch (e) {
       print('Change Password Error: $e');
-      Get.snackbar(
-        'Error',
-        'An error occurred while changing the password: $e',
-        snackPosition: SnackPosition.TOP,
-      );
+      SnackBarCustom.GetSnackBarError(
+          title: 'Lỗi', content: 'Không thay đổi được mật khẩu');
       return false;
     }
   }

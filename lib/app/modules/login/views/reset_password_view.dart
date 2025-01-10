@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/themes/theme.dart';
 import '../../../middleware/auth/controllers/auth_controller.dart';
+import '../../../themes/snackbar.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -37,7 +37,7 @@ class ForgotPasswordView extends StatelessWidget {
               onPressed: () async {
                 String email = emailController.text.trim();
                 if (email.isEmpty) {
-                  AppTheme.GetSnackBarError(
+                  SnackBarCustom.GetSnackBarError(
                       title: 'Lỗi', content: 'Email không được để trống !!!');
                   return;
                 }
@@ -51,12 +51,12 @@ class ForgotPasswordView extends StatelessWidget {
                     await authController.sendPasswordResetEmail(email);
                 Get.back();
                 if (success) {
-                  AppTheme.GetSnackBarSuccess(
+                  SnackBarCustom.GetSnackBarSuccess(
                       title: 'Thành công',
                       content: 'Đã gửi link reset password đến $email');
                   Get.offAllNamed('/login');
                 } else {
-                  AppTheme.GetSnackBarError(
+                  SnackBarCustom.GetSnackBarError(
                       title: 'Lỗi', content: 'Không tìm thấy email !!!');
                 }
               },

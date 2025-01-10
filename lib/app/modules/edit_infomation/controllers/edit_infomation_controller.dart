@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/themes/theme.dart';
+
+import '../../../themes/snackbar.dart';
 
 class EditInfomationController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -67,7 +68,7 @@ class EditInfomationController extends GetxController {
         this.dateOfBirth.value = dateOfBirth;
         this.sex.value = sex;
 
-        AppTheme.GetSnackBarSuccess(
+        SnackBarCustom.GetSnackBarSuccess(
             title: 'Thành Công', content: 'Cập nhật thông tin thành công');
         Get.offAllNamed('/home');
         return true;
@@ -76,7 +77,7 @@ class EditInfomationController extends GetxController {
       }
     } catch (e) {
       print('Update User Info Error: $e');
-      AppTheme.GetSnackBarError(
+      SnackBarCustom.GetSnackBarError(
           title: 'Lỗi', content: 'Cập nhật thông tin thất bại');
       return false;
     }

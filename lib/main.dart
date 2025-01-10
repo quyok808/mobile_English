@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import 'app/middleware/auth/controllers/auth_controller.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
@@ -45,6 +46,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
       title: 'OnlyA',
       initialRoute: AppRoutes.AUTH_CHECKER,
       getPages: AppPages.pages,

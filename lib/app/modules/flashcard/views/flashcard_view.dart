@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import '../controllers/flashcard_controller.dart';
 
 class FlashcardView extends StatelessWidget {
@@ -13,9 +14,16 @@ class FlashcardView extends StatelessWidget {
     controller.loadFlashcards();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Flashcards'),
-        backgroundColor: Colors.blue[400],
+        title: Center(
+          child: Text(
+            'Flashcards',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        backgroundColor: AppTheme.blue,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -32,7 +40,8 @@ class FlashcardView extends StatelessWidget {
             ),
           );
         }
-        final currentFlashcard = controller.flashcards[controller.currentIndex.value];
+        final currentFlashcard =
+            controller.flashcards[controller.currentIndex.value];
 
         // return ListView.builder(
         //   itemCount: controller.flashcards.length,
@@ -54,7 +63,8 @@ class FlashcardView extends StatelessWidget {
             Expanded(
               child: FlashcardWidget(
                 word: currentFlashcard['word'] ?? 'Từ không xác định',
-                description: currentFlashcard['description'] ?? 'Không có mô tả',
+                description:
+                    currentFlashcard['description'] ?? 'Không có mô tả',
                 pronounce: currentFlashcard['pronounce'] ?? 'Không có',
               ),
             ),
@@ -76,7 +86,8 @@ class FlashcardView extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.arrow_forward),
                     onPressed: () {
-                      if (controller.currentIndex.value < controller.flashcards.length - 1) {
+                      if (controller.currentIndex.value <
+                          controller.flashcards.length - 1) {
                         controller.currentIndex.value++;
                       }
                     },
@@ -115,7 +126,6 @@ class FlashcardView extends StatelessWidget {
   // }
 }
 
-
 class FlashcardWidget extends StatelessWidget {
   final String word;
   final String description;
@@ -130,13 +140,14 @@ class FlashcardWidget extends StatelessWidget {
     // required this.onDelete,
   }) : super(key: key);
 
-  final FlutterTts flutterTts = FlutterTts();  // Khởi tạo đối tượng FlutterTts
+  final FlutterTts flutterTts = FlutterTts(); // Khởi tạo đối tượng FlutterTts
   // Hàm để phát âm từ
   void _speak() async {
     await flutterTts.setLanguage("en-US"); // Ngôn ngữ tiếng Anh
     await flutterTts.setPitch(1.0); // Độ cao giọng
     await flutterTts.speak(word); // Phát âm từ
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -160,22 +171,23 @@ class FlashcardWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0), // Đặt padding cho toàn bộ thẻ
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,  // Căn giữa nội dung trong thẻ
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Căn giữa nội dung trong thẻ
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: _speak,  // Khi nhấn loa, phát âm từ
+                onTap: _speak, // Khi nhấn loa, phát âm từ
                 child: Container(
-                  padding: const EdgeInsets.all(10.0),  // Padding bên trong vòng tròn
+                  padding:
+                      const EdgeInsets.all(10.0), // Padding bên trong vòng tròn
                   decoration: BoxDecoration(
                     color: Colors.blue[300], // Màu nền vòng tròn
                     shape: BoxShape.circle, // Đảm bảo vòng tròn
                   ),
-                  child: Icon(
-                      Icons.volume_up, // Biểu tượng loa
+                  child: Icon(Icons.volume_up, // Biểu tượng loa
                       size: 30, // Kích thước biểu tượng
                       color: Colors.white // Màu biểu tượng
-                  ),
+                      ),
                 ),
               ),
               // Thêm biểu tượng loa phía trên từ
@@ -214,11 +226,13 @@ class FlashcardWidget extends StatelessWidget {
       child: Card(
         elevation: 4,
         color: const Color.fromARGB(255, 62, 172, 251),
-        child: Center(  // Dùng Center để căn giữa nội dung
+        child: Center(
+          // Dùng Center để căn giữa nội dung
           child: Padding(
-            padding: const EdgeInsets.all(8.0),  // Đặt padding trong thẻ
+            padding: const EdgeInsets.all(8.0), // Đặt padding trong thẻ
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,  // Căn giữa nội dung trong thẻ
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Căn giữa nội dung trong thẻ
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
