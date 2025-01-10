@@ -52,4 +52,53 @@ class AccountController extends GetxController {
       print("Lỗi khi tải thông tin người dùng: $e");
     }
   }
+
+  // Đổi mật khẩu
+  Future<bool> changePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      final User? user = _firebaseAuth.currentUser;
+      if (user == null) {
+        throw Exception('Người dùng chưa đăng nhập');
+      }
+
+      // Xác thực lại người dùng bằng mật khẩu hiện tại
+      final AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      // Cập nhật mật khẩu mới
+      await user.updatePassword(newPassword);
+
+      Get.snackbar(
+        'Success',
+        'Your password has been changed successfully.',
+        snackPosition: SnackPosition.TOP,
+      );
+
+      return true;
+    } catch (e) {
+      print('Change Password Error: $e');
+      Get.snackbar(
+        'Error',
+        'An error occurred while changing the password: $e',
+        snackPosition: SnackPosition.TOP,
+      );
+      return false;
+    }
+  }
+
+  RxBool isPasswordVisible = false.obs;
+  RxBool isCurrentPasswordVisible = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  void toggleCurrentPasswordVisibility() {
+    isCurrentPasswordVisible.value = !isCurrentPasswordVisible.value;
+  }
 }
