@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:onlya_english/app/modules/Search/bindings/search_binding.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/views/account_view.dart';
+import 'package:onlya_english/app/modules/flashcard/bindings/flashcard_binding.dart';
+import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
 import '../../../routes/bound_widget.dart';
 
 class HomeView extends StatefulWidget {
@@ -22,7 +24,11 @@ class _HomeViewState extends State<HomeView> {
       child: SearchView(),
     ),
     Center(child: Text('Khóa Học')),
-    Center(child: Text('Game')),
+    BoundWidget(
+      binding: FlashcardBinding(),
+      child: FlashcardView(),
+    ),
+    // Center(child: Text('Game')),
     Center(child: AccountView()),
   ];
 

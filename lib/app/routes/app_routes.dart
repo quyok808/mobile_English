@@ -9,4 +9,6 @@ abstract class AppRoutes {
   static const OTP_VERIFY = '/otp-verification';
   static const FORGOT_PASSWORD = '/forgot-password';
   static const SEARCH = '/search';
+  static const FLASHCARD = '/flashcard';
+
 }

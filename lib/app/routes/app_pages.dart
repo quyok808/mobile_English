@@ -3,6 +3,8 @@
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/bindings/account_binding.dart';
+import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
+import '../modules/flashcard/bindings/flashcard_binding.dart';
 import 'package:onlya_english/app/middleware/auth/views/otp_auth_View.dart';
 import 'package:onlya_english/app/modules/home/bindings/home_bindings.dart';
 import '../modules/Search/bindings/search_binding.dart';
@@ -53,5 +55,11 @@ class AppPages {
       page: () => SearchView(),
       binding: SearchBinding(),
     ),
+    GetPage(
+      name: AppRoutes.FLASHCARD,
+      page: () => FlashcardView(),
+      binding: FlashcardBinding(),
+    ),
+
   ];
 }

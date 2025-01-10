@@ -24,6 +24,7 @@ dependencies:
   path_provider: ^2.1.5
   provider: ^6.1.2
   flutter_tts: ^4.2.1
+  flip_card: ^0.7.0
 
 dev_dependencies:
   flutter_test:
@@ -34,4 +35,5 @@ flutter:
   assets:
     - assets/database/dict_hh.db
     - assets/images/appbar_background.png
+    - assets/images/flashcards.png
   uses-material-design: true
