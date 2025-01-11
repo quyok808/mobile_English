@@ -41,46 +41,30 @@ class FlashcardView extends StatelessWidget {
             ),
           );
         }
-        final currentFlashcard =
-            controller.flashcards[controller.currentIndex.value];
-        return Column(
-          children: [
-            Expanded(
-              child: FlashcardWidget(
-                word: currentFlashcard['word'] ?? 'Từ không xác định',
-                description:
-                    currentFlashcard['description'] ?? 'Không có mô tả',
-                pronounce: currentFlashcard['pronounce'] ?? 'Không có',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Nút Previous
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      if (controller.currentIndex.value > 0) {
-                        controller.currentIndex.value--;
-                      }
-                    },
+
+        return PageView.builder(
+          controller:
+              PageController(initialPage: controller.currentIndex.value),
+          onPageChanged: (index) {
+            controller.currentIndex.value =
+                index; // Cập nhật chỉ số flashcard hiện tại
+          },
+          itemCount: controller.flashcards.length,
+          itemBuilder: (context, index) {
+            final currentFlashcard = controller.flashcards[index];
+            return Column(
+              children: [
+                Expanded(
+                  child: FlashcardWidget(
+                    word: currentFlashcard['word'] ?? 'Từ không xác định',
+                    description:
+                        currentFlashcard['description'] ?? 'Không có mô tả',
+                    pronounce: currentFlashcard['pronounce'] ?? 'Không có',
                   ),
-                  // Nút Next
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      if (controller.currentIndex.value <
-                          controller.flashcards.length - 1) {
-                        controller.currentIndex.value++;
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         );
       }),
       floatingActionButton: FloatingActionButton(
