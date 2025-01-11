@@ -11,4 +11,5 @@ abstract class AppRoutes {
   static const SEARCH = '/search';
   static const EDIT_INFOMATION = '/edit-info';
   static const FLASHCARD = '/flashcard';
+  static const LISTENING = '/listening';
 }
