@@ -18,11 +18,11 @@ class AccountView extends StatelessWidget {
         title: Center(
           child: Text(
             'Thông tin tài khoản',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ),
-        backgroundColor: AppTheme.blue,
+        backgroundColor: Colors.blue,
       ),
       body: Stack(
         children: [
@@ -30,7 +30,7 @@ class AccountView extends StatelessWidget {
             children: [
               Container(
                 height: 215,
-                color: AppTheme.blue,
+                color: Colors.blue,
                 child: InfomationWidget(),
               ),
               Expanded(

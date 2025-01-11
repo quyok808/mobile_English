@@ -1,6 +1,6 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flip_card/flip_card.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 import '../controllers/flashcard_controller.dart';
@@ -15,16 +15,16 @@ class FlashcardView extends StatelessWidget {
     controller.loadFlashcards();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Center(
           child: Text(
             'Flashcards',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ),
-        backgroundColor: AppTheme.blue,
+        backgroundColor: Colors.blue,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
