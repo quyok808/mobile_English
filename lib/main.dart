@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'app/middleware/auth/controllers/auth_controller.dart';
+import 'app/modules/listening/controllers/listening_controller.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
@@ -16,6 +17,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform, // Cấu hình Firebase
   );
   Get.put(AuthController()); // Khởi tạo AuthController
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MainApp());
 }
