@@ -8,13 +8,17 @@ class AccountController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Rx<User?> currentUser = Rx<User?>(null);
   Rx<CustomUser?> userInfo = Rx<CustomUser?>(null); // Dữ liệu người dùng
 
   @override
   void onInit() {
     super.onInit();
     _loadUserInfo(); // Tải thông tin người dùng khi controller khởi tạo
+    currentUser.bindStream(_firebaseAuth.authStateChanges());
   }
+
+  String? get displayName => currentUser.value?.displayName;
 
   Future<void> loadUserInfo() async {
     final User? currentUser = _firebaseAuth.currentUser;
@@ -51,5 +55,54 @@ class AccountController extends GetxController {
     } catch (e) {
       print("Lỗi khi tải thông tin người dùng: $e");
     }
+  }
+
+  // Đổi mật khẩu
+  Future<bool> changePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      final User? user = _firebaseAuth.currentUser;
+      if (user == null) {
+        throw Exception('Người dùng chưa đăng nhập');
+      }
+
+      // Xác thực lại người dùng bằng mật khẩu hiện tại
+      final AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      // Cập nhật mật khẩu mới
+      await user.updatePassword(newPassword);
+
+      Get.snackbar(
+        'Success',
+        'Your password has been changed successfully.',
+        snackPosition: SnackPosition.TOP,
+      );
+
+      return true;
+    } catch (e) {
+      print('Change Password Error: $e');
+      Get.snackbar(
+        'Error',
+        'An error occurred while changing the password: $e',
+        snackPosition: SnackPosition.TOP,
+      );
+      return false;
+    }
+  }
+
+  RxBool isPasswordVisible = false.obs;
+  RxBool isCurrentPasswordVisible = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  void toggleCurrentPasswordVisibility() {
+    isCurrentPasswordVisible.value = !isCurrentPasswordVisible.value;
   }
 }
