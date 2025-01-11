@@ -1,6 +1,6 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flip_card/flip_card.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 import '../controllers/flashcard_controller.dart';
@@ -15,16 +15,16 @@ class FlashcardView extends StatelessWidget {
     controller.loadFlashcards();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Center(
           child: Text(
             'Flashcards',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ),
-        backgroundColor: AppTheme.blue,
+        backgroundColor: Colors.blue,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -41,46 +41,30 @@ class FlashcardView extends StatelessWidget {
             ),
           );
         }
-        final currentFlashcard =
-            controller.flashcards[controller.currentIndex.value];
-        return Column(
-          children: [
-            Expanded(
-              child: FlashcardWidget(
-                word: currentFlashcard['word'] ?? 'Từ không xác định',
-                description:
-                    currentFlashcard['description'] ?? 'Không có mô tả',
-                pronounce: currentFlashcard['pronounce'] ?? 'Không có',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Nút Previous
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      if (controller.currentIndex.value > 0) {
-                        controller.currentIndex.value--;
-                      }
-                    },
+
+        return PageView.builder(
+          controller:
+              PageController(initialPage: controller.currentIndex.value),
+          onPageChanged: (index) {
+            controller.currentIndex.value =
+                index; // Cập nhật chỉ số flashcard hiện tại
+          },
+          itemCount: controller.flashcards.length,
+          itemBuilder: (context, index) {
+            final currentFlashcard = controller.flashcards[index];
+            return Column(
+              children: [
+                Expanded(
+                  child: FlashcardWidget(
+                    word: currentFlashcard['word'] ?? 'Từ không xác định',
+                    description:
+                        currentFlashcard['description'] ?? 'Không có mô tả',
+                    pronounce: currentFlashcard['pronounce'] ?? 'Không có',
                   ),
-                  // Nút Next
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      if (controller.currentIndex.value <
-                          controller.flashcards.length - 1) {
-                        controller.currentIndex.value++;
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         );
       }),
       floatingActionButton: FloatingActionButton(

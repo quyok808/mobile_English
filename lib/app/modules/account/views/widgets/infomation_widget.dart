@@ -29,7 +29,10 @@ class InfomationWidget extends StatelessWidget {
             String displayName = _controller.displayName ?? "USER";
             return Text(
               displayName,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             );
           }),
         ],
