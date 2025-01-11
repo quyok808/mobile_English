@@ -106,4 +106,46 @@ class FlashcardService {
       print("Lỗi khi xóa flashcard: $e");
     }
   }
+
+  // Cập nhật flashcard theo word và userId
+  Future<void> updateFlashcard(String currentword, String word,
+      String description, String pronounce) async {
+    try {
+      // Lấy userId từ Firebase Authentication
+      String? userId = _auth.currentUser?.uid;
+
+      if (userId == null) {
+        print("Không có người dùng đăng nhập!");
+        return;
+      }
+
+      // Tìm flashcard có từ và userId tương ứng
+      final snapshot = await _db
+          .collection('flashcards')
+          .where('userId', isEqualTo: userId) // Lọc theo userId
+          .where('word', isEqualTo: currentword) // Lọc theo từ
+          .limit(1) // Chỉ lấy 1 kết quả
+          .get();
+
+      if (snapshot.docs.isEmpty) {
+        print("Không tìm thấy flashcard để cập nhật.");
+        return;
+      }
+
+      // Lấy id của flashcard
+      String docId = snapshot.docs.first.id;
+
+      // Cập nhật thông tin flashcard
+      await _db.collection('flashcards').doc(docId).update({
+        'word': word,
+        'description': description,
+        'pronounce': pronounce,
+        'timestamp': FieldValue.serverTimestamp(), // Cập nhật timestamp
+      });
+
+      print("Flashcard đã được cập nhật.");
+    } catch (e) {
+      print("Lỗi khi cập nhật flashcard: $e");
+    }
+  }
 }

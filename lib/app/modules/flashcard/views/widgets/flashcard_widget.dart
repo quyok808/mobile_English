@@ -1,7 +1,10 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../controllers/flashcard_controller.dart';
 
 class FlashcardWidget extends StatelessWidget {
   final String word;
@@ -27,13 +30,22 @@ class FlashcardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FlashcardController controller = Get.put(FlashcardController());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 220),
       child: SizedBox(
         //height: 200, // Đặt chiều cao cho card
-        child: FlipCard(
-          front: _buildFrontCard(),
-          back: _buildBackCard(),
+        child: GestureDetector(
+          onLongPress: () {
+            // print(
+            // 'word $word, type ${description.split(RegExp(r':'))[0]}, description: ${description.split(RegExp(r':'))[1]}, pronoun: $pronounce');
+            controller.updateWord(word, description.split(RegExp(r':'))[0],
+                description.split(RegExp(r':'))[1], pronounce);
+          },
+          child: FlipCard(
+            front: _buildFrontCard(),
+            back: _buildBackCard(),
+          ),
         ),
       ),
     );

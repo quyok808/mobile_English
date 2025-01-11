@@ -36,6 +36,15 @@ class FlashcardController extends GetxController {
   void deleteFlashcard(String id) {
     _flashcardService.deleteFlashcard(id);
     loadFlashcards(); // Tải lại danh sách flashcards sau khi xóa
+    SnackBarCustom.GetSnackBarSuccess(
+        title: 'Thành công', content: 'Đã xoá từ vựng khỏi bộ từ của bạn!');
+  }
+
+  void updateFlashcard(
+      String currentword, String word, String description, String pronounce) {
+    _flashcardService.updateFlashcard(
+        currentword, word, description, pronounce);
+    loadFlashcards();
   }
 
   void addword() {
@@ -60,7 +69,7 @@ class FlashcardController extends GetxController {
           ),
           TextField(
             controller: TextEditingController(),
-            decoration: const InputDecoration(hintText: 'Phát âm'),
+            decoration: const InputDecoration(hintText: 'Phiên âm'),
             onChanged: (value) => _newPronunciation.value = value,
           ),
         ],
@@ -89,4 +98,104 @@ class FlashcardController extends GetxController {
   final _newDescription = ''.obs;
   final _newPronunciation = ''.obs;
   final _newTypeOfWord = ''.obs;
+
+  void updateWord(String currentWord, String currentTypeOfWord,
+      String currentDescription, String currentPronunciation) {
+    // Khởi tạo các controller với giá trị hiện tại của từ cần sửa
+    TextEditingController _wordController =
+        TextEditingController(text: currentWord);
+    TextEditingController _typeOfWordController =
+        TextEditingController(text: currentTypeOfWord);
+    TextEditingController _descriptionController =
+        TextEditingController(text: currentDescription);
+    TextEditingController _pronunciationController =
+        TextEditingController(text: currentPronunciation);
+
+    Get.defaultDialog(
+      title: 'Cập nhật từ',
+      content: Column(
+        children: [
+          Row(
+            children: [
+              Text('Từ: '),
+              Expanded(
+                child: TextField(
+                  controller: _wordController,
+                  decoration: const InputDecoration(
+                    hintText: 'Từ mới',
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (value) => _newWord.value = value,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text('Từ loại: '),
+              Expanded(
+                child: TextField(
+                  controller: _typeOfWordController,
+                  decoration: const InputDecoration(
+                    hintText: 'Từ loại',
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (value) => _newTypeOfWord.value = value,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text('Định nghĩa: '),
+              Expanded(
+                child: TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(
+                    hintText: 'Định nghĩa',
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (value) => _newDescription.value = value,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Center(child: Text('Phiên âm: ')),
+              Expanded(
+                child: TextField(
+                  controller: _pronunciationController,
+                  decoration: const InputDecoration(
+                    hintText: 'Phát âm',
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (value) => _newPronunciation.value = value,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      textConfirm: 'Xác nhận',
+      textCancel: 'Hủy',
+      confirmTextColor: Colors.white,
+      onConfirm: () {
+        print(_newTypeOfWord.value + ': ' + _newDescription.value);
+        if (_newWord.value.isNotEmpty) {
+          updateFlashcard(
+            currentWord,
+            _wordController.text,
+            _typeOfWordController.text + ': ' + _descriptionController.text,
+            _pronunciationController.text,
+          );
+          // Chờ 2 giây trước khi tải lại danh sách flashcards
+          Future.delayed(Duration(seconds: 2), () {
+            loadFlashcards(); // Tải lại danh sách flashcards
+            Get.back(); // Đóng hộp thoại
+          });
+        }
+      },
+    );
+  }
 }
