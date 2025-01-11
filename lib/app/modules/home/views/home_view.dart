@@ -6,7 +6,10 @@ import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/views/account_view.dart';
 import 'package:onlya_english/app/modules/flashcard/bindings/flashcard_binding.dart';
 import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
+import 'package:onlya_english/app/modules/listening/bindings/listening_binding.dart';
+import 'package:onlya_english/app/modules/listening/views/listening_view.dart';
 import '../../../routes/bound_widget.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -23,7 +26,11 @@ class _HomeViewState extends State<HomeView> {
       binding: SearchBinding(),
       child: SearchView(),
     ),
-    Center(child: Text('Khóa Học')),
+    BoundWidget(
+      binding: ListeningBinding(),
+      child: ListeningPage(),
+    ),
+    //Center(child: Text('Khóa Học')),
     BoundWidget(
       binding: FlashcardBinding(),
       child: FlashcardView(),
