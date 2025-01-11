@@ -26,11 +26,10 @@ dependencies:
   flutter_tts: ^4.2.1
   flutter_native_splash: ^2.4.4
   flip_card: ^0.7.0
+  google_sign_in: ^6.2.2
   audioplayers: ^6.1.0
   just_audio: ^0.9.42
   audio_session: ^0.1.23
-
-
 
 dev_dependencies:
   flutter_test:

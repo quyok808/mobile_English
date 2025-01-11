@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../themes/snackbar.dart';
 import '../../../themes/theme.dart';
 import '../controllers/auth_controller.dart';
 
@@ -135,12 +136,12 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         bool success =
                             await authController.verifyOTP(email, inputOTP);
                         if (success) {
-                          AppTheme.GetSnackBarSuccess(
+                          SnackBarCustom.GetSnackBarSuccess(
                               title: 'Thành công',
                               content: 'Xác thực tài khoản thành công !!!');
                           Get.offAllNamed('/login');
                         } else {
-                          AppTheme.GetSnackBarError(
+                          SnackBarCustom.GetSnackBarError(
                               title: 'Error',
                               content: 'Sai mã OTP. Vui lòng thử lại !!!.');
                         }

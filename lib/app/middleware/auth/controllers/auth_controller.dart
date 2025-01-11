@@ -5,9 +5,12 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../themes/snackbar.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -46,13 +49,28 @@ class AuthController extends GetxController {
   Future<bool> register(
       String email, String password, String displayName) async {
     try {
+      // Kiểm tra email đã tồn tại chưa
+      final existingUser =
+          await _firebaseAuth.fetchSignInMethodsForEmail(email);
+      if (existingUser.isNotEmpty) {
+        Get.snackbar(
+          'Email Already In Use',
+          'The email address is already in use by another account. Please try logging in or use a different email.',
+          snackPosition: SnackPosition.TOP,
+        );
+        return false; // Email đã tồn tại, không thể đăng ký
+      }
+      // Thực hiện đăng ký với Firebase
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      await saveAdditionalUserInfo("N/A", "N/A");
+      // In ra trạng thái sau khi tạo tài khoản
+      print('User created: ${userCredential.user?.email}');
+
+      await saveAdditionalUserInfo("01/01/0001", "Khác");
 
       if (userCredential.user != null) {
         // Cập nhật display name
@@ -68,17 +86,14 @@ class AuthController extends GetxController {
         // Đăng xuất để chờ xác nhận OTP
         await _firebaseAuth.signOut();
 
-        Get.snackbar(
-          'Verify Email',
-          'An OTP has been sent to $email. Please verify.',
-          snackPosition: SnackPosition.TOP,
-        );
+        SnackBarCustom.GetSnackBarSuccess(
+            title: 'Verify Email', content: 'Đã gửi OTP đến email $email.');
 
         return true;
       }
+
       return false;
     } catch (e) {
-      print('Registration Error: $e');
       return false;
     }
   }
@@ -212,13 +227,26 @@ class AuthController extends GetxController {
   // Phương thức đăng xuất
   Future<void> logout() async {
     try {
-      // Đăng xuất khỏi Firebase
-      await _firebaseAuth.signOut();
-
-      // Xóa thông tin đăng nhập từ SharedPreferences
       final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('email');
-      Get.offAllNamed('/login');
+      bool isGoogleLogin =
+          prefs.getBool('isGoogleLogin') ?? false; // Kiểm tra isGoogleLogin
+
+      if (isGoogleLogin) {
+        // Nếu đã đăng nhập bằng Google, thực hiện đăng xuất Google
+        await GoogleSignIn().signOut();
+        print("Logged out from Google");
+
+        // Cập nhật trạng thái trong SharedPreferences (xóa isGoogleLogin)
+        await prefs.remove('isGoogleLogin');
+        Get.offAllNamed('/login');
+      } else {
+        // Đăng xuất khỏi Firebase
+        await _firebaseAuth.signOut();
+
+        // Xóa thông tin đăng nhập từ SharedPreferences
+        await prefs.remove('email');
+        Get.offAllNamed('/login');
+      }
     } catch (e) {
       Get.snackbar(
         'Error',

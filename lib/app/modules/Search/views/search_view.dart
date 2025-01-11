@@ -13,6 +13,7 @@ class SearchView extends StatelessWidget {
     final SearchWordController controller = Get.find<SearchWordController>();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: () async {
           // Gọi phương thức làm mới dữ liệu

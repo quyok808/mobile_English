@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 
+import '../../../../themes/snackbar.dart';
+
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
@@ -52,7 +54,7 @@ class LoginButton extends StatelessWidget {
         if (success) {
           Get.offAllNamed('/home');
         } else {
-          AppTheme.GetSnackBarWarning(
+          SnackBarCustom.GetSnackBarWarning(
             title: 'Đăng nhập thất bại',
             content: 'Sai thông tin tài khoản hoặc mật khẩu',
           );

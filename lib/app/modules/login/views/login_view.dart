@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/modules/login/controllers/login_controller.dart';
 import '../../../themes/theme.dart';
 import 'widgets/custom_text_field.dart';
 import 'widgets/login_button.dart';
@@ -17,6 +18,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Lấy chiều cao bàn phím
     final AuthController _auth = Get.find<AuthController>();
+    final LoginController _controller = Get.put(LoginController());
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Stack(
@@ -38,6 +40,7 @@ class LoginView extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Card(
+                  color: Colors.white,
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -82,17 +85,69 @@ class LoginView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        LoginButton(
-                          emailController: emailController,
-                          passwordController: passwordController,
+                        Center(
+                          child: Row(
+                            children: [
+                              Obx(() {
+                                // Theo dõi trạng thái của user
+                                if (_controller.user.value != null) {
+                                  // Nếu đã có user, chuyển hướng đến màn hình Home
+                                  Future.microtask(() => Get.offAllNamed(
+                                      '/home')); // Đảm bảo chuyển trang ngay khi có user
+                                  return Container(); // Ẩn nút Google Sign-In khi đã có user
+                                }
+
+                                // Nếu chưa có user, hiển thị nút đăng nhập với Google
+                                return ElevatedButton(
+                                  onPressed: _controller.signInWithGoogle,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      // Tạo viền bo tròn
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 25, vertical: 3),
+                                  ),
+                                  child: Image.network(
+                                      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/640px-Google_%22G%22_logo.svg.png',
+                                      width: 110,
+                                      height: 40),
+                                );
+                              }),
+                              SizedBox(width: 10),
+                              Spacer(),
+                              LoginButton(
+                                emailController: emailController,
+                                passwordController: passwordController,
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 15),
                         TextButton(
                           onPressed: () {
                             Get.toNamed('/register');
                           },
-                          child: Text(
-                              'Bạn không có tài khoản? Đăng kí ngay tại đây nhé!'),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Bạn không có tài khoản? ',
+                                style: TextStyle(
+                                  color: AppTheme.purple,
+                                ),
+                              ),
+                              Text(
+                                'Đăng kí ngay tại đây nhé!',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 2.0,
+                                  color: AppTheme.purple,
+                                  decorationColor: AppTheme.purple,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
