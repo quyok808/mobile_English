@@ -85,6 +85,6 @@ class AppPages {
       name: AppRoutes.CLASSROOM,
       page: () => ClassroomView(),
       binding: ClassroomBinding(),
-    )
+    ),
   ];
 }

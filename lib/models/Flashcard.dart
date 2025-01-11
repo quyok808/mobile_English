@@ -1,5 +1,5 @@
 class Flashcard {
-  final String id;
+  late final String id;
   final String word;
   final String description;
   final String pronunciation;

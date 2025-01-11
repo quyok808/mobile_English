@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/themes/theme.dart';
 import '../controllers/flashcard_controller.dart';
 import 'widgets/flashcard_widget.dart';
 
@@ -15,7 +14,7 @@ class FlashcardView extends StatelessWidget {
     controller.loadFlashcards();
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Color(0xFF7B66F0),
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -24,7 +23,7 @@ class FlashcardView extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF5FBDFF),
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -68,8 +67,12 @@ class FlashcardView extends StatelessWidget {
         );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+        onPressed: controller.addword,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

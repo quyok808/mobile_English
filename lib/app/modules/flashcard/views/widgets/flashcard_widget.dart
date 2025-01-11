@@ -1,6 +1,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FlashcardWidget extends StatelessWidget {
   final String word;
@@ -40,7 +41,7 @@ class FlashcardWidget extends StatelessWidget {
 
   Widget _buildFrontCard() {
     return SizedBox(
-      width: 250, // Đảm bảo chiều rộng bằng với parent
+      width: 300, // Đảm bảo chiều rộng bằng với parent
       //height: 200, // Đảm bảo chiều cao bằng với parent
       child: Card(
         color: Colors.white,
@@ -81,7 +82,7 @@ class FlashcardWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8), // Khoảng cách giữa từ và phát âm
               Text(
-                '/$pronounce/',
+                '(${description.split(RegExp(r':'))[0]}) /$pronounce/',
                 style: const TextStyle(
                   color: Color.fromARGB(255, 111, 111, 111),
                   fontSize: 25,
@@ -102,22 +103,26 @@ class FlashcardWidget extends StatelessWidget {
       //height: 200, // Đảm bảo chiều cao bằng với parent
       child: Card(
         elevation: 4,
-        color: const Color.fromARGB(255, 62, 172, 251),
+        color: Color(0xFFC5FFF8),
         child: Center(
           // Dùng Center để căn giữa nội dung
           child: Padding(
-            padding: const EdgeInsets.all(8.0), // Đặt padding trong thẻ
+            padding: EdgeInsets.all(8.0), // Đặt padding trong thẻ
             child: Column(
               mainAxisAlignment:
                   MainAxisAlignment.center, // Căn giữa nội dung trong thẻ
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Color.fromARGB(221, 255, 254, 254),
-                  ),
+                  description.contains(':')
+                      ? description
+                              .split(RegExp(r':'))[1]
+                              .substring(1, 2)
+                              .toUpperCase() +
+                          description.split(RegExp(r':'))[1].substring(2)
+                      : description.substring(0, 1).toUpperCase() +
+                          description.substring(1),
+                  style: GoogleFonts.itim(fontSize: 40),
                   textAlign: TextAlign.center,
                 ),
               ],
