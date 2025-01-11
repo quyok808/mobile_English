@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/bindings/account_binding.dart';
 import 'package:onlya_english/app/modules/account/views/change-pass-view.dart';
+import 'package:onlya_english/app/modules/classrooms/bindings/classroom_binding.dart';
+import 'package:onlya_english/app/modules/classrooms/view/classroom_view.dart';
 import 'package:onlya_english/app/modules/edit_infomation/bindings/editInfomation_binding.dart';
 import 'package:onlya_english/app/modules/edit_infomation/views/edit_infomation_view.dart';
 import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
@@ -78,6 +80,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.CHANGE_PASS,
       page: () => ChangePassView(),
+    ),
+    GetPage(
+      name: AppRoutes.CLASSROOM,
+      page: () => ClassroomView(),
+      binding: ClassroomBinding(),
     )
   ];
 }

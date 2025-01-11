@@ -6,11 +6,13 @@ import '../controllers/listening_controller.dart';
 
 class ListeningPage extends StatelessWidget {
   final ListeningController controller = Get.put(ListeningController());
-  final AudioPlayer audioPlayer = AudioPlayer(); // Tạo AudioPlayer từ just_audio
+  final AudioPlayer audioPlayer =
+      AudioPlayer(); // Tạo AudioPlayer từ just_audio
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Listening Practice'),
         backgroundColor: Colors.blue[400],
@@ -39,14 +41,14 @@ class ListeningPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     lesson['title'],
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             );
           },
         );
-
 
         // return ListView.builder(
         //   itemCount: controller.lessons.length,

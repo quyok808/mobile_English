@@ -13,4 +13,5 @@ abstract class AppRoutes {
   static const LISTENING = '/listening';
   static const EDIT_INFOMATION = '/edit-info';
   static const CHANGE_PASS = '/change-pass';
+  static const CLASSROOM = '/classroom';
 }

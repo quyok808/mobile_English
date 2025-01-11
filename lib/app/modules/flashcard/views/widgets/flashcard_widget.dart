@@ -43,6 +43,7 @@ class FlashcardWidget extends StatelessWidget {
       width: 250, // Đảm bảo chiều rộng bằng với parent
       //height: 200, // Đảm bảo chiều cao bằng với parent
       child: Card(
+        color: Colors.white,
         elevation: 4,
         child: Padding(
           padding: const EdgeInsets.all(8.0), // Đặt padding cho toàn bộ thẻ
