@@ -53,6 +53,11 @@ class AuthController extends GetxController {
       final existingUser =
           await _firebaseAuth.fetchSignInMethodsForEmail(email);
       if (existingUser.isNotEmpty) {
+        Get.snackbar(
+          'Email Already In Use',
+          'The email address is already in use by another account. Please try logging in or use a different email.',
+          snackPosition: SnackPosition.TOP,
+        );
         return false; // Email đã tồn tại, không thể đăng ký
       }
       // Thực hiện đăng ký với Firebase

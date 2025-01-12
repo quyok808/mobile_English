@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:onlya_english/app/themes/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../themes/snackbar.dart';
 
 class LoginController extends GetxController {
@@ -42,45 +42,38 @@ class LoginController extends GetxController {
         idToken: googleAuth.idToken,
       );
 
+      // Kiểm tra xem email của người dùng có tồn tại trong Firestore không
       final email = googleUser.email;
+      final userDoc = await _firestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get();
 
-      // Đăng nhập bằng credential Google
+      if (userDoc.docs.isNotEmpty) {
+        // Nếu email đã tồn tại trong Firestore, thông báo lỗi và không cho đăng nhập qua Google
+        SnackBarCustom.GetSnackBarError(
+            title: 'Lỗi',
+            content: 'Email này đã được đăng kí, vui lòng sử dụng email khác');
+        return;
+      }
+
+      // Tiến hành đăng nhập nếu email chưa tồn tại
       final UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
-      final User? firebaseUser = userCredential.user;
+      user.value = userCredential.user;
 
-      // Kiểm tra xem tài khoản đã tồn tại trong Firestore và có phương thức đăng nhập không phải Google không
-      if (firebaseUser != null) {
-        // Kiểm tra nếu tài khoản đã đăng nhập qua email/password
-        final providerData = firebaseUser.providerData;
-
-        bool isEmailPassword =
-            providerData.any((userInfo) => userInfo.providerId == 'password');
-
-        if (isEmailPassword) {
-          // Nếu đã đăng nhập bằng email/password, thông báo lỗi và không cho phép đăng nhập qua Google
-          SnackBarCustom.GetSnackBarError(
-            title: 'Lỗi',
-            content:
-                'Email này đã được đăng ký bằng phương thức email/password. Không thể đăng nhập bằng Google.',
-          );
-          return;
-        }
-
-        // Tiến hành tạo tài khoản nếu chưa đăng ký và lưu thông tin vào Firestore
-        await _firestore.collection('users').doc(firebaseUser.uid).set({
-          'displayName': firebaseUser.displayName ?? '',
-          'email': firebaseUser.email,
+      // Tạo người dùng mới trong Firestore nếu email chưa có
+      if (user.value != null) {
+        await _firestore.collection('users').doc(user.value?.uid).set({
+          'displayName': user.value?.displayName,
+          'email': user.value?.email,
           'dateOfBirth': '01/01/0001',
           'sex': 'Khác',
-          'SignInMethod': 'Google', // Lưu phương thức đăng nhập
         });
-
-        user.value = firebaseUser;
-
-        setGoogleLogin(true);
       }
+
+      setGoogleLogin(true);
     } catch (error) {
       Get.snackbar('Error', 'Failed to sign in: $error');
     }
