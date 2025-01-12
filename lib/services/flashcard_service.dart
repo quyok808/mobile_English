@@ -1,7 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:onlya_english/app/themes/snackbar.dart';
-import 'package:onlya_english/models/Flashcard.dart';
 
 class FlashcardService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -107,9 +107,33 @@ class FlashcardService {
     }
   }
 
-  // Cập nhật flashcard theo word và userId
-  Future<void> updateFlashcard(String currentword, String word,
-      String description, String pronounce) async {
+  // Tìm flashcard theo id
+  Future<Map<String, dynamic>?> findById(String id) async {
+    try {
+      // Lấy document theo ID
+      final doc = await _db.collection('flashcards').doc(id).get();
+
+      if (!doc.exists) {
+        print("Flashcard không tồn tại: $id");
+        return null;
+      }
+
+      // Trả về thông tin flashcard dưới dạng Map
+      return {
+        'id': doc.id,
+        'word': doc['word'],
+        'description': doc['description'],
+        'pronounce': doc['pronounce'],
+        'timestamp': doc['timestamp'],
+      };
+    } catch (e) {
+      print("Lỗi khi tìm flashcard theo ID: $e");
+      return null;
+    }
+  }
+
+  Future<void> updateFlashcard(
+      String id, String word, String description, String pronounce) async {
     try {
       // Lấy userId từ Firebase Authentication
       String? userId = _auth.currentUser?.uid;
@@ -119,31 +143,23 @@ class FlashcardService {
         return;
       }
 
-      // Tìm flashcard có từ và userId tương ứng
-      final snapshot = await _db
-          .collection('flashcards')
-          .where('userId', isEqualTo: userId) // Lọc theo userId
-          .where('word', isEqualTo: currentword) // Lọc theo từ
-          .limit(1) // Chỉ lấy 1 kết quả
-          .get();
+      // Kiểm tra flashcard có tồn tại và thuộc về userId hay không
+      final doc = await _db.collection('flashcards').doc(id).get();
 
-      if (snapshot.docs.isEmpty) {
-        print("Không tìm thấy flashcard để cập nhật.");
+      if (!doc.exists || doc.data()?['userId'] != userId) {
+        print(
+            "Flashcard không tồn tại hoặc không thuộc về người dùng hiện tại: $id");
         return;
       }
 
-      // Lấy id của flashcard
-      String docId = snapshot.docs.first.id;
-
       // Cập nhật thông tin flashcard
-      await _db.collection('flashcards').doc(docId).update({
+      await _db.collection('flashcards').doc(id).update({
         'word': word,
         'description': description,
         'pronounce': pronounce,
-        'timestamp': FieldValue.serverTimestamp(), // Cập nhật timestamp
       });
 
-      print("Flashcard đã được cập nhật.");
+      print("Flashcard đã được cập nhật thành công.");
     } catch (e) {
       print("Lỗi khi cập nhật flashcard: $e");
     }

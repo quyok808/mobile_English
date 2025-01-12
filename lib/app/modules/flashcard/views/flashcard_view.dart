@@ -70,11 +70,26 @@ class FlashcardView extends StatelessWidget {
                       pronounce: currentFlashcard['pronounce'] ?? 'Không có',
                     ),
                   ),
-                  child: FlashcardWidget(
-                    word: currentFlashcard['word'] ?? 'Từ không xác định',
-                    description:
-                        currentFlashcard['description'] ?? 'Không có mô tả',
-                    pronounce: currentFlashcard['pronounce'] ?? 'Không có',
+                  child: GestureDetector(
+                    onLongPress: () {
+                      controller.updateWord(
+                          currentFlashcard['id'],
+                          currentFlashcard['word'],
+                          currentFlashcard['description']
+                              .toString()
+                              .split(RegExp(r':'))[0],
+                          currentFlashcard['description']
+                              .toString()
+                              .split(RegExp(r':'))[1]
+                              .trim(),
+                          currentFlashcard['pronounce']);
+                    },
+                    child: FlashcardWidget(
+                      word: currentFlashcard['word'] ?? 'Từ không xác định',
+                      description:
+                          currentFlashcard['description'] ?? 'Không có mô tả',
+                      pronounce: currentFlashcard['pronounce'] ?? 'Không có',
+                    ),
                   ),
                 );
               },
