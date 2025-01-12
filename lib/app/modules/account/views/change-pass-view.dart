@@ -31,9 +31,12 @@ class ChangePassView extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        leading: Icon(
-          Icons.arrow_back,
-          color: Colors.white,
+        leading: IconButton(
+          onPressed: Get.back,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: AppTheme.color_appbar,
       ),
