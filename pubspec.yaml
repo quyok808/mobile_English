@@ -30,6 +30,8 @@ dependencies:
   audioplayers: ^6.1.0
   just_audio: ^0.9.42
   audio_session: ^0.1.23
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

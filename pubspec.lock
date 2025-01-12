@@ -342,6 +342,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -540,10 +545,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "0.19.0"
   just_audio:
     dependency: "direct main"
     description:
@@ -612,10 +617,10 @@ packages:
     dependency: "direct main"
     description:
       name: mailer
-      sha256: "54d42d2d60412d8666d1e2bf768887eeefd4ecc5e0c6e8365e3a58e76415c037"
+      sha256: e907087cd00719898c493f720dd326af73b00b406ab4af8e79f15d7c5fc24035
       url: "https://pub.dev"
     source: hosted
-    version: "6.4.0"
+    version: "6.3.0"
   matcher:
     dependency: transitive
     description:

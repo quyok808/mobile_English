@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/account/views/widgets/infomation_widget.dart';
-import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
-import 'package:onlya_english/app/themes/theme.dart';
 
 import 'widgets/button_management.dart';
 
