@@ -6,6 +6,8 @@ import 'package:onlya_english/app/modules/account/bindings/account_binding.dart'
 import 'package:onlya_english/app/modules/auth/views/otp_auth_View.dart';
 import 'package:onlya_english/app/modules/course/bindings/course_bindings.dart';
 import 'package:onlya_english/app/modules/course/views/first.dart';
+import 'package:onlya_english/app/modules/course/views/lessondetail.dart';
+import 'package:onlya_english/app/modules/course/views/speaking_practice.dart';
 import 'package:onlya_english/app/modules/home/bindings/home_bindings.dart';
 import '../modules/Search/bindings/search_binding.dart';
 import '../modules/account/views/account_view.dart';
@@ -58,6 +60,15 @@ class AppPages {
     GetPage(
       name: AppRoutes.COURSES,
       page: () => CourseView(),
+      binding: CourseBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.LESSON_DETAIL,
+      page: () => LessonDetailView(),
+    ),
+    GetPage(
+      name: AppRoutes.SPEAKING_PRACTICE,
+      page: () => SpeakingPracticeView(),
       binding: CourseBinding(),
     ),
   ];

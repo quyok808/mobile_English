@@ -10,4 +10,6 @@ abstract class AppRoutes {
   static const FORGOT_PASSWORD = '/forgot-password';
   static const SEARCH = '/search';
   static const COURSES = '/courses';
+  static const LESSON_DETAIL = '/lesson-detail';
+  static const SPEAKING_PRACTICE = '/speaking-practice';
 }

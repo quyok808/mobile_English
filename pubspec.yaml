@@ -24,6 +24,13 @@ dependencies:
   path_provider: ^2.1.5
   provider: ^6.1.2
   flutter_tts: ^4.2.1
+  audioplayers: ^6.1.0
+  text_to_speech: ^0.2.3
+  speech_to_text: ^7.0.0
+  record: ^5.2.0
+  googleapis: ^13.2.0
+  permission_handler: ^11.3.1
+  dart_levenshtein: ^1.0.1
 
 dev_dependencies:
   flutter_test:
