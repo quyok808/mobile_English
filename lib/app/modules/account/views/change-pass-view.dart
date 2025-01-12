@@ -1,6 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/account/controllers/account_controller.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import '../../../themes/snackbar.dart';
 import '../../login/views/widgets/custom_text_field.dart';
 
@@ -22,10 +25,17 @@ class ChangePassView extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Thay đổi mật khẩu',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        leading: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+        backgroundColor: AppTheme.color_appbar,
       ),
       body: Stack(
         children: [
@@ -39,7 +49,7 @@ class ChangePassView extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Card(
-                color: Colors.white.withOpacity(0.9),
+                color: Colors.white.withOpacity(0.92),
                 elevation: 8,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

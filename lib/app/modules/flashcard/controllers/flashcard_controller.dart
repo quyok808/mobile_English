@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,6 +78,10 @@ class FlashcardController extends GetxController {
       textCancel: 'Hủy',
       confirmTextColor: Colors.white,
       onConfirm: () {
+        Get.dialog(
+          Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
         if (_newWord.value.isNotEmpty) {
           addFlashcardbtn(
             _newWord.value,
@@ -181,7 +185,10 @@ class FlashcardController extends GetxController {
       textCancel: 'Hủy',
       confirmTextColor: Colors.white,
       onConfirm: () {
-        print(_newTypeOfWord.value + ': ' + _newDescription.value);
+        Get.dialog(
+          Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
         if (_newWord.value.isNotEmpty) {
           updateFlashcard(
             currentWord,
