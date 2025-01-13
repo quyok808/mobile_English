@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:onlya_english/app/modules/listening/views/DetailPage.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import '../controllers/listening_controller.dart';
 
 class ListeningPage extends StatelessWidget {
@@ -12,10 +13,24 @@ class ListeningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text('Listening Practice'),
-        backgroundColor: Colors.blue[400],
+        title: const Text(
+          'Listening Practice',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: IconButton(
+          onPressed: Get.back,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: AppTheme.color_appbar,
+        centerTitle: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -30,6 +45,7 @@ class ListeningPage extends StatelessWidget {
           itemBuilder: (context, index) {
             final lesson = controller.lessons[index];
             return Card(
+              color: Colors.white,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               elevation: 4,
               child: InkWell(
