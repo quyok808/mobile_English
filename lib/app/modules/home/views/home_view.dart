@@ -8,10 +8,7 @@ import 'package:onlya_english/app/modules/classrooms/bindings/classroom_binding.
 import 'package:onlya_english/app/modules/classrooms/view/classroom_view.dart';
 import 'package:onlya_english/app/modules/flashcard/bindings/flashcard_binding.dart';
 import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
-import 'package:onlya_english/app/modules/listening/bindings/listening_binding.dart';
-import 'package:onlya_english/app/modules/listening/views/listening_view.dart';
 import '../../../routes/bound_widget.dart';
-import '../../../themes/theme.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

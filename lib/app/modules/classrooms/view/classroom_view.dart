@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onlya_english/app/modules/classrooms/view/widgets/item_column.dart';
-import 'package:onlya_english/app/modules/listening/bindings/listening_binding.dart';
-import 'package:onlya_english/app/routes/bound_widget.dart';
-import 'package:onlya_english/app/themes/theme.dart';
-
-import '../../listening/views/listening_view.dart';
 
 class ClassroomView extends StatelessWidget {
   const ClassroomView({super.key});
@@ -32,10 +27,11 @@ class ClassroomView extends StatelessWidget {
                 content: 'Luyện nghe', // thế thôi, không cần chỉnh j thêm
                 path: '/listening', // lấy bên app-routes.dart
               ),
-              // ItemClassroom(
-              //   imagelink: 'assets/images/speak.png',
-              //   content: 'Luyện nói',
-              // ),
+              ItemClassroom(
+                imagelink: 'assets/images/speak.png',
+                content: 'Luyện nói',
+                path: '/courses',
+              ),
               // ItemClassroom(
               //   imagelink: 'assets/images/read.png',
               //   content: 'Luyện đọc',
