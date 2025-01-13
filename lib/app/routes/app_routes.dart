@@ -15,4 +15,6 @@ abstract class AppRoutes {
   static const CHANGE_PASS = '/change-pass';
   static const CLASSROOM = '/classroom';
   static const READING = '/reading';
+  static const ESSAY = '/essay';
+  static const GAME = '/game';
 }

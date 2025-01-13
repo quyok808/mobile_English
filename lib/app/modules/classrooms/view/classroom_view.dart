@@ -40,10 +40,16 @@ class ClassroomView extends StatelessWidget {
                 content: 'Luyện đọc',
                 path: '/reading',
               ),
-              // ItemClassroom(
-              //   imagelink: 'assets/images/write.png',
-              //   content: 'Luyện viết',
-              // ),
+              ItemClassroom(
+                imagelink: 'assets/images/write.png',
+                content: 'Luyện viết',
+                path: '/essay',
+              ),
+              ItemClassroom(
+                imagelink: 'assets/images/game.jpg',
+                content: 'Game',
+                path: '/game',
+              ),
               // ItemClassroom(
               //   imagelink: 'assets/images/dictionary.png',
               //   content: 'Từ vựng của tôi',
