@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import '../controllers/fish_game_controller.dart';
 
 class FishGameView extends StatefulWidget {
@@ -10,7 +11,8 @@ class FishGameView extends StatefulWidget {
   _FishGameViewState createState() => _FishGameViewState();
 }
 
-class _FishGameViewState extends State<FishGameView> with TickerProviderStateMixin {
+class _FishGameViewState extends State<FishGameView>
+    with TickerProviderStateMixin {
   final FishGameController controller = Get.find<FishGameController>();
   late AnimationController _animationController;
   late Animation<double> _fishMovement;
@@ -44,62 +46,76 @@ class _FishGameViewState extends State<FishGameView> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fish Vocabulary Game'),
-        backgroundColor: Colors.teal,
+        title: const Text(
+          'Fish Vocabulary Game',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: Get.back,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: AppTheme.color_appbar,
       ),
       body: Obx(() {
         if (controller.isGameOver.value) {
-  return Stack(
-    children: [
-      // Hình nền
-      Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/deadfish.jpg'), // Đường dẫn hình nền
-            fit: BoxFit.cover, // Phủ đầy màn hình
-          ),
-        ),
-      ),
-      // Nội dung "Game Over"
-      Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Game Over!',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 244, 244, 244),
+          return Stack(
+            children: [
+              // Hình nền
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/deadfish.jpg'), // Đường dẫn hình nền
+                      fit: BoxFit.cover, // Phủ đầy màn hình
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            // Nếu cần hiển thị thêm thông tin, bỏ comment các dòng dưới
-            // Text(
-            //    'Final Water Level: ${controller.waterLevel.value * 100}%',
-            //   style: TextStyle(fontSize: 18, color: Colors.grey),
-            // ),
-            // const SizedBox(height: 40),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
-              onPressed: () {
-                // Đặt lại trò chơi
-                controller.isGameOver.value = false;
-                controller.waterLevel.value = 1.0;
-                controller.currentWordIndex.value = 0;
-                _animationController.reset(); // Đặt lại animation
-              },
-              child: const Text(
-                'Play Again',
-                style: TextStyle(fontSize: 18),
+              // Nội dung "Game Over"
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Game Over!',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 244, 244, 244),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Nếu cần hiển thị thêm thông tin, bỏ comment các dòng dưới
+                    // Text(
+                    //    'Final Water Level: ${controller.waterLevel.value * 100}%',
+                    //   style: TextStyle(fontSize: 18, color: Colors.grey),
+                    // ),
+                    // const SizedBox(height: 40),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal),
+                      onPressed: () {
+                        // Đặt lại trò chơi
+                        controller.isGameOver.value = false;
+                        controller.waterLevel.value = 1.0;
+                        controller.currentWordIndex.value = 0;
+                        _animationController.reset(); // Đặt lại animation
+                      },
+                      child: const Text(
+                        'Play Again',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-
+            ],
+          );
         }
 
         return Container(
@@ -116,9 +132,11 @@ class _FishGameViewState extends State<FishGameView> with TickerProviderStateMix
                 return Align(
                   alignment: Alignment.bottomCenter,
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 500), // Thời gian chuyển động mực nước
+                    duration: Duration(
+                        milliseconds: 500), // Thời gian chuyển động mực nước
                     curve: Curves.easeInOut,
-                    height: (MediaQuery.of(context).size.height - 100) * controller.waterLevel.value,
+                    height: (MediaQuery.of(context).size.height - 100) *
+                        controller.waterLevel.value,
                     width: double.infinity,
                     color: Colors.blue.withOpacity(0.5), // Màu nước trong suốt
                   ),
@@ -128,10 +146,15 @@ class _FishGameViewState extends State<FishGameView> with TickerProviderStateMix
               // Con cá di chuyển theo mực nước và bơi qua lại
               Obx(() {
                 return Positioned(
-                  top: MediaQuery.of(context).size.height * (1.0 - controller.waterLevel.value) , // Đảm bảo con cá ở trong mực nước
+                  top: MediaQuery.of(context).size.height *
+                      (1.0 -
+                          controller.waterLevel
+                              .value), // Đảm bảo con cá ở trong mực nước
                   left: _fishMovement.value, // Vị trí ngang của con cá
                   child: AnimatedOpacity(
-                    opacity: controller.waterLevel.value > 0.1 ? 1.0 : 0.0, // Con cá mờ dần khi mực nước thấp
+                    opacity: controller.waterLevel.value > 0.1
+                        ? 1.0
+                        : 0.0, // Con cá mờ dần khi mực nước thấp
                     duration: Duration(milliseconds: 450),
                     child: Image.asset(
                       'assets/images/fish.png', // Đường dẫn đến hình ảnh con cá

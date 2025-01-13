@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../themes/theme.dart';
 import '../controllers/essay_controller.dart';
 import 'essay_list_view.dart';
 
@@ -11,9 +12,21 @@ class EssayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Write an Essay'),
-        backgroundColor: Colors.blueGrey, // AppBar color
+        title: Text(
+          'Write an Essay',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: AppTheme.color_appbar, // AppBar color
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: Get.back,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -22,25 +35,30 @@ class EssayView extends StatelessWidget {
           children: [
             // Dropdown for Topic selection
             Obx(() => DropdownButton<String>(
-              value: controller.selectedTopic.value,
-              onChanged: (value) {
-                if (value != null) {
-                  controller.selectedTopic.value = value;
-                  controller.essayText.value = ''; // Reset essay content
-                  _essayController.clear(); // Clear TextField
-                }
-              },
-              items: [
-                'General', 'Technology', 'Environment', 'Education', 'Health'
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value, style: TextStyle(fontSize: 16)),
-                );
-              }).toList(),
-              isExpanded: true, // Make the dropdown take full width
-            )),
-            SizedBox(height: 16), // Adjusted space between dropdown and text field
+                  value: controller.selectedTopic.value,
+                  onChanged: (value) {
+                    if (value != null) {
+                      controller.selectedTopic.value = value;
+                      controller.essayText.value = ''; // Reset essay content
+                      _essayController.clear(); // Clear TextField
+                    }
+                  },
+                  items: [
+                    'General',
+                    'Technology',
+                    'Environment',
+                    'Education',
+                    'Health'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value, style: TextStyle(fontSize: 16)),
+                    );
+                  }).toList(),
+                  isExpanded: true, // Make the dropdown take full width
+                )),
+            SizedBox(
+                height: 16), // Adjusted space between dropdown and text field
 
             // TextField for Essay input
             Expanded(
@@ -90,7 +108,8 @@ class EssayView extends StatelessWidget {
                         ),
                         child: Text(
                           controller.feedback.value,
-                          style: TextStyle(color: Colors.blueGrey, fontSize: 16),
+                          style:
+                              TextStyle(color: Colors.blueGrey, fontSize: 16),
                         ),
                       ),
                     ),
@@ -120,4 +139,3 @@ class EssayView extends StatelessWidget {
     );
   }
 }
-

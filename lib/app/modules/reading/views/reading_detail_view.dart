@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 
 class ReadingDetailView extends StatefulWidget {
   final Map<String, dynamic> reading;
@@ -10,16 +12,28 @@ class ReadingDetailView extends StatefulWidget {
 }
 
 class _ReadingDetailViewState extends State<ReadingDetailView> {
-  final Map<int, String?> _selectedAnswers = {}; // Store selected answers for each question
-  final Map<int, bool?> _answerStatus = {}; // Store answer status: correct or incorrect
+  final Map<int, String?> _selectedAnswers =
+      {}; // Store selected answers for each question
+  final Map<int, bool?> _answerStatus =
+      {}; // Store answer status: correct or incorrect
   bool _showTranslation = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.reading['title']),
-        backgroundColor: Colors.blue[600],
+        title: Text(
+          widget.reading['title'],
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: Get.back,
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
+        backgroundColor: AppTheme.color_appbar,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
@@ -38,7 +52,8 @@ class _ReadingDetailViewState extends State<ReadingDetailView> {
                   _showTranslation = !_showTranslation;
                 });
               },
-              child: Text(_showTranslation ? 'Hide Translation' : 'Show Translation'),
+              child: Text(
+                  _showTranslation ? 'Hide Translation' : 'Show Translation'),
             ),
             const SizedBox(height: 20),
             // Conditionally render translation
@@ -54,7 +69,8 @@ class _ReadingDetailViewState extends State<ReadingDetailView> {
             ...widget.reading['questions'].asMap().entries.map<Widget>((entry) {
               final int index = entry.key;
               final Map<String, dynamic> question = entry.value;
-              final List<String> options = List<String>.from(question['options']);
+              final List<String> options =
+                  List<String>.from(question['options']);
               final String correctAnswer = question['answer'];
 
               return Padding(
@@ -71,7 +87,8 @@ class _ReadingDetailViewState extends State<ReadingDetailView> {
                       children: [
                         Text(
                           question['question'],
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 12),
                         ...options.map<Widget>((option) {
@@ -92,7 +109,8 @@ class _ReadingDetailViewState extends State<ReadingDetailView> {
                                 : (value) {
                                     setState(() {
                                       _selectedAnswers[index] = value;
-                                      _answerStatus[index] = value == correctAnswer;
+                                      _answerStatus[index] =
+                                          value == correctAnswer;
                                     });
                                   },
                           );
@@ -130,7 +148,8 @@ class _ReadingDetailViewState extends State<ReadingDetailView> {
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             'Example: ${vocab['example']}',
-                            style: TextStyle(fontSize: 14, color: Colors.blueGrey),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.blueGrey),
                           ),
                         ),
                     ],

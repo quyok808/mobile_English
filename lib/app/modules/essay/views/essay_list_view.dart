@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../models/essay_model.dart';
+import '../../../themes/theme.dart';
 import '../controllers/essay_controller.dart';
 import 'EssayDetailView.dart';
-
 
 class EssayListView extends StatelessWidget {
   final EssayController controller = Get.find<EssayController>();
@@ -14,11 +14,19 @@ class EssayListView extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Danh sách Bài luận',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.teal,
+        backgroundColor: AppTheme.color_appbar,
+        leading: IconButton(
+          onPressed: Get.back,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -39,9 +47,8 @@ class EssayListView extends StatelessWidget {
             }
 
             final essays = snapshot.data!;
-            final essaysWithTopic = essays
-                .where((essay) => essay.topic.isNotEmpty)
-                .toList();
+            final essaysWithTopic =
+                essays.where((essay) => essay.topic.isNotEmpty).toList();
 
             if (essaysWithTopic.isEmpty) {
               return Center(

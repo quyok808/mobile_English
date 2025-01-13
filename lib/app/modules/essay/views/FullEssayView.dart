@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../models/essay_model.dart';
 
 class FullEssayView extends StatelessWidget {
@@ -10,9 +11,16 @@ class FullEssayView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chi tiết Bài luận', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: Text('Chi tiết Bài luận',
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
         centerTitle: true,
         elevation: 0,
+        leading: IconButton(
+            onPressed: Get.back,
+            icon: Icon(Icons.arrow_back, color: Colors.white)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
