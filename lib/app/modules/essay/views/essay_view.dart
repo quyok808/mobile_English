@@ -107,7 +107,11 @@ class EssayView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          controller.feedback.value,
+                          controller.feedback.value.runes
+                              .map((char) => char < 0x20 || char > 0x7E
+                                  ? ' '
+                                  : String.fromCharCode(char))
+                              .join(),
                           style:
                               TextStyle(color: Colors.blueGrey, fontSize: 16),
                         ),
