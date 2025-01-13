@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 import 'app/middleware/auth/controllers/auth_controller.dart';
+import 'app/modules/reading/controllers/reading_controller.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';

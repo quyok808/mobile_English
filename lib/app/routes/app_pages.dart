@@ -8,9 +8,15 @@ import 'package:onlya_english/app/modules/classrooms/bindings/classroom_binding.
 import 'package:onlya_english/app/modules/classrooms/view/classroom_view.dart';
 import 'package:onlya_english/app/modules/edit_infomation/bindings/editInfomation_binding.dart';
 import 'package:onlya_english/app/modules/edit_infomation/views/edit_infomation_view.dart';
+import 'package:onlya_english/app/modules/essay/bindings/essay_binding.dart';
+import 'package:onlya_english/app/modules/essay/views/essay_view.dart';
 import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
+import 'package:onlya_english/app/modules/game/bindings/fish_game_binding.dart';
+import 'package:onlya_english/app/modules/game/views/fish_game_view.dart';
 import 'package:onlya_english/app/modules/listening/bindings/listening_binding.dart';
 import 'package:onlya_english/app/modules/listening/views/listening_view.dart';
+import 'package:onlya_english/app/modules/reading/bindings/reading_binding.dart';
+import 'package:onlya_english/app/modules/reading/views/reading_view.dart';
 import '../modules/course/bindings/course_bindings.dart';
 import '../modules/course/views/first.dart';
 import '../modules/course/views/lessondetail.dart';
@@ -89,6 +95,21 @@ class AppPages {
       name: AppRoutes.CLASSROOM,
       page: () => ClassroomView(),
       binding: ClassroomBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.ESSAY,
+      page: () => EssayView(),
+      binding: EssayBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.GAME,
+      page: () => FishGameView(),
+      binding: FishGameBinding (),
+    ),
+    GetPage(
+      name: AppRoutes.READING,
+      page: () => ReadingView(),
+      binding: ReadingBinding(),
     ),
     GetPage(
       name: AppRoutes.COURSES,
