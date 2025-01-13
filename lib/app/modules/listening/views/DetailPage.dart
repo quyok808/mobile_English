@@ -1,5 +1,13 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:onlya_english/app/themes/snackbar.dart';
+import 'package:onlya_english/app/themes/theme.dart';
+
+import '../controllers/listening_controller.dart';
 
 class LessonDetailPage extends StatefulWidget {
   final Map<String, dynamic> lesson;
@@ -12,6 +20,8 @@ class LessonDetailPage extends StatefulWidget {
 
 class _LessonDetailPageState extends State<LessonDetailPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  final ListeningController listeningcontroller =
+      Get.put(ListeningController());
   int currentIndex = 0;
   bool _showTranscript = false;
   bool _showTranslation = false;
@@ -35,23 +45,39 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
     final currentSection = sections[currentIndex] as Map<String, dynamic>;
 
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text(widget.lesson['title']),
+        title: Text(
+          widget.lesson['title'],
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: AppTheme.color_appbar,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: Get.back,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Câu hỏi
-            if (currentSection['questions'] != null)
-              _buildQuestions(currentSection['questions']),
-            // Audio và Transcript
-            _buildAudioPlayer(currentSection),
-            const SizedBox(height: 16),
-            // Điều hướng giữa các phần
-            _buildNavigationButtons(sections.length),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildAudioPlayer(currentSection),
+              // Câu hỏi
+              if (currentSection['questions'] != null)
+                _buildQuestions(currentSection['questions']),
+              // Audio và Transcript
+
+              const SizedBox(height: 16),
+              // Điều hướng giữa các phần
+              _buildNavigationButtons(sections.length),
+            ],
+          ),
         ),
       ),
     );
@@ -71,26 +97,51 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                question['question'],
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // Hiển thị số thứ tự câu hỏi
+              Obx(
+                () {
+                  return SizedBox(
+                    height: 30,
+                    child: Text(
+                      "Question ${listeningcontroller.GetIndexQuestion()}: ${question['question']}",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  );
+                },
               ),
               TextField(
                 controller: _controllers[index],
                 decoration: InputDecoration(
-                  hintText: 'Enter your answer...',
+                  hintText: 'Type your answer...',
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: _isAnswerChecked[index] == true
                           ? (_isAnswerCorrect[index] == true
-                          ? Colors.green
-                          : Colors.red)
+                              ? Colors.green
+                              : Colors.red)
                           : Colors.grey,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 8),
+              if (_isAnswerChecked[index] != null)
+                Text(
+                  _isAnswerCorrect[index] == true ? 'Correct!' : 'Incorrect',
+                  style: GoogleFonts.itim(
+                      color: _isAnswerCorrect[index] == true
+                          ? Colors.green
+                          : Colors.red,
+                      fontSize: 18),
+                ),
+
+              if (_isAnswerChecked[index] == true &&
+                  _isAnswerCorrect[index] == false)
+                Text(
+                  'Correct Answer: ${question['answer']}',
+                  style: GoogleFonts.itim(color: Colors.blue, fontSize: 18),
+                ),
               ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -100,23 +151,36 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
                             _controllers[index]!.text.trim().toLowerCase();
                   });
                 },
-                child: const Text('Check Answer'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)), // Bo tròn góc
+                  elevation: 3,
+                  backgroundColor: Colors.blue,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.check,
+                      size: 25,
+                      weight: 1,
+                      color: Colors.yellowAccent,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      'Check',
+                      style: GoogleFonts.itim(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.yellowAccent,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              if (_isAnswerChecked[index] != null)
-                Text(
-                  _isAnswerCorrect[index] == true ? 'Correct!' : 'Incorrect',
-                  style: TextStyle(
-                    color: _isAnswerCorrect[index] == true
-                        ? Colors.green
-                        : Colors.red,
-                  ),
-                ),
-              if (_isAnswerChecked[index] == true &&
-                  _isAnswerCorrect[index] == false)
-                Text(
-                  'Correct Answer: ${question['answer']}',
-                  style: const TextStyle(color: Colors.blue),
-                ),
             ],
           ),
         );
@@ -126,6 +190,7 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
 
   Widget _buildAudioPlayer(Map<String, dynamic> section) {
     return Card(
+      color: Colors.white,
       elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -161,19 +226,38 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.play_arrow),
-                  onPressed: () async {
-                    await _audioPlayer.setAsset(
-                        "assets/audio/${section['audio']}");
-                    _audioPlayer.play();
-                  },
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: AppTheme.light_blue,
+                  child: Center(
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.play_arrow,
+                        color: Colors.black,
+                      ),
+                      onPressed: () async {
+                        await _audioPlayer
+                            .setAsset("assets/audio/${section['audio']}");
+                        _audioPlayer.play();
+                      },
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.stop),
-                  onPressed: () {
-                    _audioPlayer.stop();
-                  },
+                SizedBox(
+                  width: 10,
+                ),
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: AppTheme.light_blue,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.stop,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      _audioPlayer.stop();
+                    },
+                  ),
                 ),
               ],
             ),
@@ -185,12 +269,13 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
                     _showTranscript = true;
                   });
                 },
-                child: const Text('Show Transcript'),
+                child: Text('Show Transcript'),
               ),
             if (_showTranscript) ...[
               Text(
                 section['transcript'],
-                style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                style:
+                    const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
               ),
               const SizedBox(height: 8),
               ElevatedButton(
@@ -231,32 +316,35 @@ class _LessonDetailPageState extends State<LessonDetailPage> {
         ElevatedButton(
           onPressed: currentIndex > 0
               ? () {
-            setState(() {
-              currentIndex--;
-              _audioPlayer.stop();
-              _clearControllers();
-              _resetViewStates(); // Reset trạng thái hiển thị
-            });
-          }
+                  setState(() {
+                    currentIndex--;
+                    _audioPlayer.stop();
+                    _clearControllers();
+                    _resetViewStates(); // Reset trạng thái hiển thị
+                  });
+                  listeningcontroller.countdownIndex();
+                }
               : null,
-          child: const Text('Previous'),
+          child: const Text('Previous question'),
         ),
         ElevatedButton(
           onPressed: currentIndex < totalSections - 1
               ? () {
-            setState(() {
-              currentIndex++;
-              _audioPlayer.stop();
-              _clearControllers();
-              _resetViewStates(); // Reset trạng thái hiển thị
-            });
-          }
+                  setState(() {
+                    currentIndex++;
+                    _audioPlayer.stop();
+                    _clearControllers();
+                    _resetViewStates(); // Reset trạng thái hiển thị
+                  });
+                  listeningcontroller.countupIndex();
+                }
               : null,
-          child: const Text('Next'),
+          child: const Text('Next question'),
         ),
       ],
     );
   }
+
   void _resetViewStates() {
     _showTranscript = false;
     _showTranslation = false;

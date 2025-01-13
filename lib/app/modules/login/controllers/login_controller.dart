@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../themes/snackbar.dart';
@@ -49,28 +50,23 @@ class LoginController extends GetxController {
           .where('email', isEqualTo: email)
           .get();
 
-      if (userDoc.docs.isNotEmpty) {
+      if (userDoc.docs.isEmpty) {
         // Nếu email đã tồn tại trong Firestore, thông báo lỗi và không cho đăng nhập qua Google
-        SnackBarCustom.GetSnackBarError(
-            title: 'Lỗi',
-            content: 'Email này đã được đăng kí, vui lòng sử dụng email khác');
-        return;
-      }
+        // Tiến hành đăng nhập nếu email chưa tồn tại
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
 
-      // Tiến hành đăng nhập nếu email chưa tồn tại
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+        user.value = userCredential.user;
 
-      user.value = userCredential.user;
-
-      // Tạo người dùng mới trong Firestore nếu email chưa có
-      if (user.value != null) {
-        await _firestore.collection('users').doc(user.value?.uid).set({
-          'displayName': user.value?.displayName,
-          'email': user.value?.email,
-          'dateOfBirth': '01/01/0001',
-          'sex': 'Khác',
-        });
+        // Tạo người dùng mới trong Firestore nếu email chưa có
+        if (user.value != null) {
+          await _firestore.collection('users').doc(user.value?.uid).set({
+            'displayName': user.value?.displayName,
+            'email': user.value?.email,
+            'dateOfBirth': '01/01/0001',
+            'sex': 'Khác',
+          });
+        }
       }
 
       setGoogleLogin(true);
