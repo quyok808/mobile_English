@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/modules/auth/controllers/auth_controller.dart';
-import 'package:onlya_english/app/themes/theme.dart';
+import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
+import '../../../../themes/snackbar.dart';
 
 class RegisterButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -34,35 +34,65 @@ class RegisterButton extends StatelessWidget {
             password.isEmpty ||
             confirmPassword.isEmpty ||
             displayName.isEmpty) {
-          Get.snackbar(
-            'Lỗi',
-            'Cần phải điền đầy đủ thông tin !!!',
-            snackPosition: SnackPosition.TOP,
-          );
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!', content: 'Bạn phải điền đầy đủ thông tin');
           return;
         }
 
         if (password != confirmPassword) {
-          Get.snackbar(
-            'Lỗi',
-            'Xác nhận mật khẩu không trùng khớp với mật khẩu',
-            snackPosition: SnackPosition.TOP,
-          );
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!',
+              content: 'Xác nhận mật khẩu không trùng khớp.');
           return;
         }
 
+        // Kiểm tra mật khẩu có đủ yêu cầu chưa
+        if (password.length < 6) {
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!',
+              content: 'Mật khẩu phải có ít nhất 6 kí tự ');
+          return;
+        }
+        if (!password.contains(RegExp(r'[a-z]'))) {
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!',
+              content: 'Mật khẩu phải có ít nhất 1 kí tự viết thường');
+          return;
+        }
+        if (!password.contains(RegExp(r'[A-Z]'))) {
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!',
+              content: 'Mật khẩu phải có ít nhất 1 kí tự viết hoa');
+          return;
+        }
+        if (!password.contains(RegExp(r'[0-9]'))) {
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!',
+              content: 'Mật khẩu phải có ít nhất 1 kí tự số');
+          return;
+        }
+
+        Get.dialog(
+          Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
+
         bool success =
             await authController.register(email, password, displayName);
+        Get.back();
+
         if (success) {
           Get.toNamed('/otp-verification', arguments: email);
-          // Get.offAllNamed('/login'); // Chuyển về màn hình Login
         } else {
-          AppTheme.GetSnackBarError(
-              title: 'Lỗi', content: 'Đăng kí thất bại !!!');
+          SnackBarCustom.GetSnackBarWarning(
+              title: 'Thông báo!',
+              content: 'Email đã đăng kí. Vui lòng đăng kí với email khác');
+          return;
         }
       },
       style: ElevatedButton.styleFrom(
         // Màu nền chính
+        backgroundColor: Colors.blue[400],
         iconColor: Colors.white, // Màu chữ khi nút được kích hoạt
         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
         shape: RoundedRectangleBorder(
@@ -71,7 +101,7 @@ class RegisterButton extends StatelessWidget {
       ),
       child: Text(
         'Đăng kí',
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );
   }

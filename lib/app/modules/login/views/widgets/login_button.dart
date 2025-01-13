@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/modules/auth/controllers/auth_controller.dart';
+import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
 import 'package:onlya_english/app/themes/theme.dart';
+
+import '../../../../themes/snackbar.dart';
 
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -52,7 +54,7 @@ class LoginButton extends StatelessWidget {
         if (success) {
           Get.offAllNamed('/home');
         } else {
-          AppTheme.GetSnackBarWarning(
+          SnackBarCustom.GetSnackBarWarning(
             title: 'Đăng nhập thất bại',
             content: 'Sai thông tin tài khoản hoặc mật khẩu',
           );
@@ -60,17 +62,21 @@ class LoginButton extends StatelessWidget {
       },
       style: ElevatedButton.styleFrom(
         // Màu nền chính
-        iconColor: Colors.white, // Màu chữ khi nút được kích hoạt
+        backgroundColor: Color(0xFF4bafee),
+        iconColor: Colors.blue, // Màu chữ khi nút được kích hoạt
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10)), // Bo tròn góc
         elevation: 3, // Thêm đổ bóng nhẹ
       ),
-      child: Text(
-        'Đăng nhập',
-        style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500), // Chỉnh font chữ và độ dày
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Image.asset(
+          'assets/images/login-btn.gif',
+          fit: BoxFit.cover,
+          width: 100,
+          height: 23,
+        ),
       ),
     );
   }

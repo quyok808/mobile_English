@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:onlya_english/app/modules/Search/bindings/search_binding.dart';
 import 'package:onlya_english/app/modules/Search/views/search_view.dart';
 import 'package:onlya_english/app/modules/account/views/account_view.dart';
-import 'package:onlya_english/app/modules/course/bindings/course_bindings.dart';
-import 'package:onlya_english/app/modules/course/views/first.dart';
+import 'package:onlya_english/app/modules/classrooms/bindings/classroom_binding.dart';
+import 'package:onlya_english/app/modules/classrooms/view/classroom_view.dart';
+import 'package:onlya_english/app/modules/flashcard/bindings/flashcard_binding.dart';
+import 'package:onlya_english/app/modules/flashcard/views/flashcard_view.dart';
+import 'package:onlya_english/app/modules/listening/bindings/listening_binding.dart';
+import 'package:onlya_english/app/modules/listening/views/listening_view.dart';
 import '../../../routes/bound_widget.dart';
+import '../../../themes/theme.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -24,16 +29,20 @@ class _HomeViewState extends State<HomeView> {
       child: SearchView(),
     ),
     BoundWidget(
-      binding: CourseBinding(),
-      child: CourseView(),
+      binding: ClassroomBinding(),
+      child: ClassroomView(),
     ),
-    Center(child: Text('Game')),
+    BoundWidget(
+      binding: FlashcardBinding(),
+      child: FlashcardView(),
+    ),
     Center(child: AccountView()),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: _screens[_currentIndex],
       bottomNavigationBar: Stack(
         children: [
@@ -44,34 +53,37 @@ class _HomeViewState extends State<HomeView> {
                 _currentIndex = index;
               });
             },
-            backgroundColor: Colors.blue[200],
-            selectedItemColor: Colors.black,
-            items: const [
+            selectedItemColor: Colors.blue,
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            items: [
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home,
-                  color: Colors.black,
+                  color: Colors.blue,
                 ),
                 label: 'Trang Chủ',
+                backgroundColor: Colors.white,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.book, color: Colors.black),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.book, color: Colors.blue),
                 label: 'Khóa Học',
-                
+                backgroundColor: Colors.white,
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.gamepad,
-                  color: Colors.black,
+                  color: Colors.blue,
                 ),
-                label: 'Game',
+                label: 'Flashcards',
+                backgroundColor: Colors.white,
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.account_circle,
-                  color: Colors.black,
+                  color: Colors.blue,
                 ),
                 label: 'Tài Khoản',
+                backgroundColor: Colors.white,
               ),
             ],
           ),

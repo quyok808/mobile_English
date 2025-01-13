@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../auth/controllers/auth_controller.dart';
+import '../../../../middleware/auth/controllers/auth_controller.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
@@ -22,7 +22,6 @@ class LogoutButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15)), // Bo tròn góc
-        elevation: 3, // Thêm đổ bóng nhẹ
       ),
       child: Row(
         mainAxisAlignment:
