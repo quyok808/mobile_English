@@ -21,12 +21,13 @@ class LoginController extends GetxController {
     _googleSignIn.onCurrentUserChanged.listen((account) {
       user.value = account != null ? _auth.currentUser : null;
     });
-    _googleSignIn.signInSilently();
+    _googleSignIn.signInSilently(); // Check if the user is signed in silently.
   }
 
   Future<void> signInWithGoogle() async {
     try {
-      await _googleSignIn.signOut();
+      await _googleSignIn
+          .signOut(); // Ensure user is signed out before trying again
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         return; // Người dùng hủy đăng nhập.
@@ -47,15 +48,21 @@ class LoginController extends GetxController {
           .where('email', isEqualTo: email)
           .get();
 
-      if (userDoc.docs.isEmpty) {
-        // Nếu email đã tồn tại trong Firestore, thông báo lỗi và không cho đăng nhập qua Google
-        // Tiến hành đăng nhập nếu email chưa tồn tại
+      if (userDoc.docs.isNotEmpty) {
+        // Nếu email đã tồn tại, cho phép đăng nhập trực tiếp vào hệ thống
         final UserCredential userCredential =
             await _auth.signInWithCredential(credential);
-
         user.value = userCredential.user;
 
-        // Tạo người dùng mới trong Firestore nếu email chưa có
+        // Lưu thông tin vào SharedPreferences
+        setGoogleLogin(true);
+      } else {
+        // Nếu email chưa tồn tại trong Firestore, tạo người dùng mới
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+        user.value = userCredential.user;
+
+        // Tạo người dùng mới trong Firestore
         if (user.value != null) {
           await _firestore.collection('users').doc(user.value?.uid).set({
             'displayName': user.value?.displayName,
@@ -64,9 +71,10 @@ class LoginController extends GetxController {
             'sex': 'Khác',
           });
         }
-      }
 
-      setGoogleLogin(true);
+        // Lưu trạng thái đăng nhập vào SharedPreferences
+        setGoogleLogin(true);
+      }
     } catch (error) {
       Get.snackbar('Error', 'Failed to sign in: $error');
     }

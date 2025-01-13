@@ -35,12 +35,25 @@ class FlashcardView extends StatelessWidget {
             }
 
             if (controller.flashcards.isEmpty) {
-              return const Center(
-                child: Text(
-                  'Chưa có flashcard nào!',
-                  style: TextStyle(fontSize: 25, color: Colors.grey),
+              return Center(
+                  child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 84, vertical: 5),
+                      child: Image.asset('assets/images/flash-card.png'),
+                    ),
+                    Text(
+                      'Không có flashcard!!!',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 24),
+                    )
+                  ],
                 ),
-              );
+              ));
             }
 
             return PageView.builder(
