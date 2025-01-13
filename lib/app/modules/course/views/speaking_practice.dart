@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlya_english/app/modules/course/controllers/course_controller.dart';
 import 'package:onlya_english/app/themes/snackbar.dart';
+import 'package:onlya_english/app/themes/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:dart_levenshtein/dart_levenshtein.dart';
@@ -208,10 +209,19 @@ class _SpeakingPracticeViewState extends State<SpeakingPracticeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text(controller.speakingTopicData.value.topicName)),
-        backgroundColor: Colors.green,
+        title: Obx(
+          () => Text(
+            controller.speakingTopicData.value.topicName,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: AppTheme.color_appbar,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
           onPressed: () {
             Get.back();
           },
