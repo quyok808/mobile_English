@@ -5,9 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 import '../../../themes/snackbar.dart';
-import '../../../themes/theme.dart';
 import '../controllers/auth_controller.dart';
 
 class OTPVerificationView extends StatefulWidget {

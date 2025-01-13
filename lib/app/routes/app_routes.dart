@@ -14,4 +14,7 @@ abstract class AppRoutes {
   static const EDIT_INFOMATION = '/edit-info';
   static const CHANGE_PASS = '/change-pass';
   static const CLASSROOM = '/classroom';
+  static const COURSES = '/courses';
+  static const LESSON_DETAIL = '/lesson-detail';
+  static const SPEAKING_PRACTICE = '/speaking-practice';
 }

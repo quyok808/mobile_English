@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:onlya_english/app/themes/snackbar.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 
 import '../controllers/listening_controller.dart';
