@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
@@ -14,6 +13,7 @@ class AppTheme {
   static final light_blue = Color(0xFFBBEEFA);
   static final purple = Color(0xFF624E88);
   static final light_purple = Color(0xFFB1AFFF);
+  static final color_appbar = Color(0xFF5FBDFF);
 
   //font chữ
   static final lobsterFont =

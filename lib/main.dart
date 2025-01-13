@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 import 'app/middleware/auth/controllers/auth_controller.dart';
@@ -52,6 +53,16 @@ class _MainAppState extends State<MainApp> {
       title: 'OnlyA',
       initialRoute: AppRoutes.AUTH_CHECKER,
       getPages: AppPages.pages,
+      // Thêm các delegates để hỗ trợ đa ngôn ngữ
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate, // Hỗ trợ Material Components
+        GlobalWidgetsLocalizations.delegate, // Hỗ trợ widget localization
+        GlobalCupertinoLocalizations.delegate, // Hỗ trợ Cupertino localization
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'), // Ngôn ngữ mặc định
+        const Locale('vi', 'VN'), // Hỗ trợ tiếng Việt
+      ],
     );
   }
 }

@@ -17,4 +17,7 @@ abstract class AppRoutes {
   static const READING = '/reading';
   static const ESSAY = '/essay';
   static const GAME = '/game';
+  static const COURSES = '/courses';
+  static const LESSON_DETAIL = '/lesson-detail';
+  static const SPEAKING_PRACTICE = '/speaking-practice';
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onlya_english/app/middleware/auth/controllers/auth_controller.dart';
 import 'package:onlya_english/app/modules/account/controllers/account_controller.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 

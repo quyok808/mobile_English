@@ -17,6 +17,10 @@ import 'package:onlya_english/app/modules/listening/bindings/listening_binding.d
 import 'package:onlya_english/app/modules/listening/views/listening_view.dart';
 import 'package:onlya_english/app/modules/reading/bindings/reading_binding.dart';
 import 'package:onlya_english/app/modules/reading/views/reading_view.dart';
+import '../modules/course/bindings/course_bindings.dart';
+import '../modules/course/views/first.dart';
+import '../modules/course/views/lessondetail.dart';
+import '../modules/course/views/speaking_practice.dart';
 import '../modules/flashcard/bindings/flashcard_binding.dart';
 import 'package:onlya_english/app/middleware/auth/views/otp_auth_View.dart';
 import 'package:onlya_english/app/modules/home/bindings/home_bindings.dart';
@@ -106,6 +110,20 @@ class AppPages {
       name: AppRoutes.READING,
       page: () => ReadingView(),
       binding: ReadingBinding(),
-    )
+    ),
+    GetPage(
+      name: AppRoutes.COURSES,
+      page: () => CourseView(),
+      binding: CourseBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.LESSON_DETAIL,
+      page: () => LessonDetailView(),
+    ),
+    GetPage(
+      name: AppRoutes.SPEAKING_PRACTICE,
+      page: () => SpeakingPracticeView(),
+      binding: CourseBinding(),
+    ),
   ];
 }

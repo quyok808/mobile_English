@@ -1,6 +1,5 @@
 // user_info_row.dart
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:onlya_english/app/themes/theme.dart';
 import 'CustomText.dart';
 
