@@ -1,10 +1,10 @@
 name: onlya_english
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.1.0
+version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.3
 
 dependencies:
   flutter:
@@ -18,11 +18,32 @@ dependencies:
   firebase_storage: ^12.3.7
   http: ^1.2.2
   get: ^4.6.6
+  random_string: ^2.3.1
+  mailer: ^6.3.0
+  sqflite: ^2.4.1
+  path_provider: ^2.1.5
+  provider: ^6.1.2
+  flutter_tts: ^4.2.1
+  flutter_native_splash: ^2.4.4
+  flip_card: ^0.7.0
+  google_sign_in: ^6.2.2
+  audioplayers: ^6.1.0
+  just_audio: ^0.9.42
+  audio_session: ^0.1.23
+  flutter_localizations:
+    sdk: flutter
+  speech_to_text: ^7.0.0
+  permission_handler: ^11.3.1
+  dart_levenshtein: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
+  assets:
+    - assets/database/dict_hh.db
+    - assets/images/
+    - assets/audio/
   uses-material-design: true
